@@ -69,4 +69,8 @@ Grade.create(score: 90, comments: 'Excellent', student: Student.first, course: C
 Grade.create(score: 85, comments: 'Very Good', student: Student.last, course: Course.last)
 # Add more grades as needed
 
+# db/seeds.rb
+Admin.create( email: 'your_email@example.com', password: 'your_password', password_confirmation: 'your_password')
+
+
 puts'done seeding'
