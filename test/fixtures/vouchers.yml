@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  voucher_amount: 1
+  expiry_date: MyString
+  student_id: 1
+
+two:
+  voucher_amount: 1
+  expiry_date: MyString
+  student_id: 1
