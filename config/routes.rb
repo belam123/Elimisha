@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  resources :grades
+  namespace :admins do
+    resources :grades, only: [:index, :show, :create, :update, :destroy]
+    post 'login', to: 'sessions#create'
+    delete 'logout', to: 'sessions#destroy'
+  end
+
   resources :forms
   resources :courses
   resources :vouchers
@@ -8,12 +13,6 @@ Rails.application.routes.draw do
   resources :students, only: [:create, :show]
   post '/register', to: 'students#create'
   get '/me/:id', to: 'students#show'
-
-  # Admin routes
-  namespace :admins do
-    post 'login', to: 'sessions#create'
-    delete 'logout', to: 'sessions#destroy'
-  end
 
   # Root path route
   # root "articles#index"
