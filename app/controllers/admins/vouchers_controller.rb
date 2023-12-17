@@ -1,4 +1,4 @@
-class VouchersController < ApplicationController
+class Admins::VouchersController < ApplicationController
     before_action :authenticate_admin, only: [:create, :update, :destroy]
   
     def index
