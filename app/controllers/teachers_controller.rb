@@ -1,6 +1,6 @@
 class TeachersController < ApplicationController
     before_action :authenticate_admin, only: [:create, :update, :destroy]
-  
+    rescue_from ActiveRecord::RecordNotFound,with: :no_response
     def index
       teachers = Teacher.all
       render json: teachers
@@ -16,7 +16,7 @@ class TeachersController < ApplicationController
       if teacher.valid?
         render json: teacher, status: :created
       else
-        render json: { error: 'Failed to create a new teacher' }, status: :unprocessable_entity
+        render json: {errors: teacher.errors.full_messages}, status :unprocessable_entity
       end
     end
   
@@ -41,6 +41,10 @@ class TeachersController < ApplicationController
       params.require(:teacher).permit(:first_name, :last_name, :email, :department)
     end
   
+    def no_response
+      render json: {error: "Record does not exist"}, status: :unprocessable_entity
+       end
+       
     def authenticate_admin
       unless current_admin
         render json: { error: 'Admin authentication required' }, status: :unauthorized
