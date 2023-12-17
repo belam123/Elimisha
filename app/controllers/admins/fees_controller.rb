@@ -1,4 +1,4 @@
-class FeesController < ApplicationController
+class Admins::FeesController < ApplicationController
     before_action :authenticate_admin, only: [:create, :update, :destroy]
     rescue_from ActiveRecord::RecordNotFound, with: :no_response
   

@@ -1,4 +1,4 @@
-class TeachersController < ApplicationController
+class Admins::TeachersController < ApplicationController
     before_action :authenticate_admin, only: [:create, :update, :destroy]
     rescue_from ActiveRecord::RecordNotFound,with: :no_response
     def index
