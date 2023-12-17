@@ -6,71 +6,56 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 puts 'seeding...'
-# db/seeds.rb
 
-# Seed data for courses
-Course.create(course_name: 'Math', course_des: 'Mathematics course description')
-Course.create(course_name: 'Science', course_des: 'Science course description')
-# Add more courses as needed
+#forms 
+form1 = Form.create(class_number: 1, stream: "Blue")
+form2 = Form.create(class_number:2, stream: "Purple")
+form4 = Form.create(class_number: 4, stream: "Green")
 
-# Seed data for forms
-Form.create(class_number: 10, stream: 'A')
-Form.create(class_number: 11, stream: 'B')
-# Add more forms as needed
+#admins
+admin1 = Admin.create(email: "belammuia0@gmail.com", password: "belam")
+admin2 = Admin.create(email: "clivemudigo@gmail.com", password: "nyalingu")
 
-# Seed data for students
-Student.create(
-  first_name: 'John',
-  second_name: 'Doe',
-  last_name: 'Smith',
-  email: 'johndoe@kibwareboys.ac.ke',
-  password: 'password',
-  password_confirmation: 'password',
-  form: Form.first
-)
-Student.create(
-  first_name: 'Jane',
-  second_name: 'Doe',
-  last_name: 'Johnson',
-  email: 'jamhydeoe@kibwareboys.ac.ke',
-  password: 'password',
-  password_confirmation: 'password',
-  form: Form.last
-)
-# Add more students as needed
+#students
+student1 =  Student.create(first_name: "James", second_name: "Kamau", last_name: "Mashu", email: "kmashu@kibwareboys.ac.ke",password: "12345",password_confirmation: "12345", form_id: form1.id)
+student2 =  Student.create(first_name: "Brian", second_name: "Muchiri", last_name: "Nderitu",email: "bmuchiri@kibwareboys.ac.ke", password: "12345", password_confirmation: "12345",form_id: form4.id)
+student3 = Student.create(first_name: "Joshua", second_name: "Ochieng", last_name: "Aduor", email: "joduor@kibwareboys.ac.ke", password: "12345", password_confirmation: "12345", form_id: form2.id)
 
-# Seed data for teachers
-Teacher.create(
-  first_name: 'Alice',
-  last_name: 'Johnson',
-  email: 'alice.johnson@example.com',
-  department: 'Math'
-)
-Teacher.create(
-  first_name: 'Bob',
-  last_name: 'Smith',
-  email: 'bob.smith@example.com',
-  department: 'Science'
-)
-# Add more teachers as needed
+#teachers
+teacher1 = Teacher.create(first_name: "Paul", last_name: "Wainaina", email: "balozi@gmail.com",department: "Soc1al sciences and humanities")
+teacher2 = Teacher.create(first_name: "John", last_name: "Koli", email: "kolingo@gmail.com",department: "Social sciences and humanities")
+teacher3 = Teacher.create(first_name: "Brian", last_name: "Kaleli", email: "kaleli@gmail.com",department: "Maths and sciences")
+teacher4 = Teacher.create(first_name: "Ben", last_name: "Wafula", email: "wafula@gmail.com",department: "Social sciences and humanities")
+teacher5 = Teacher.create(first_name: "Jonah", last_name: "ruto", email: "jruto@gmail.com",department: "Languages")
+teacher6 = Teacher.create(first_name: "Emilia", last_name: "Makena", email: "makena@gmail.com",department: "Maths and sciences")
 
-# Seed data for fees
-Fee.create(amount: 1000, due_date: '2023-12-31', payment_status: 'Paid', student: Student.first)
-Fee.create(amount: 1200, due_date: '2023-12-31', payment_status: 'Pending', student: Student.last)
-# Add more fees as needed
+#vouchers
+voucher1 = Voucher.create(voucher_amount: 1050, expiry_date: "19-04-2023", student_id: student1.id)
+voucher2 = Voucher.create(voucher_amount: 2250, expiry_date: "27-05-2023", student_id: student3.id)
+voucher3 = Voucher.create(voucher_amount: 10500, expiry_date: '20-11-2024', student_id: student2.id) 
 
-# Seed data for vouchers
-Voucher.create(voucher_amount: 500, expiry_date: '2023-12-31', student: Student.first)
-Voucher.create(voucher_amount: 700, expiry_date: '2023-12-31', student: Student.last)
-# Add more vouchers as needed
+#fees
+fee1 =  Fee.create(amount: 1500, due_date: '04-04-2023', payment_status: "Not cleared", student_id: student1.id)
+fee2 =  Fee.create(amount: 0, due_date: 'NA', payment_status: "Cleared", student_id: student3.id)
+fee3 = Fee.create(amount: 0, due_date: 'NA', payment_status: 'cleared', student_id: student2.id)
 
-# Seed data for grades
-Grade.create(score: 90, comments: 'Excellent', student: Student.first, course: Course.first)
-Grade.create(score: 85, comments: 'Very Good', student: Student.last, course: Course.last)
-# Add more grades as needed
+#courses
+course1 = Course.create(course_name: "Math",course_des: "121", teacher_id: teacher3.id)
+course2 = Course.create(course_name: "Geo",course_des: "212", teacher_id: teacher2.id)
+course3 = Course.create(course_name: "Hist",course_des: "211", teacher_id: teacher4.id)
+course4 = Course.create(course_name: "Kisw",course_des: "200", teacher_id: teacher5.id)
+course5 = Course.create(course_name: "Math",course_des: "121", teacher_id: teacher6.id)
+course6 = Course.create(course_name: "CRE",course_des: "210", teacher_id: teacher1.id)
 
-# db/seeds.rb
-Admin.create( email: 'your_email@example.com', password: 'your_password', password_confirmation: 'your_password')
+#grades
+grade1 = Grade.create(score: 90, comments: "Excellent", student_id: student1.id, course_id: course6.id)
+grade2 = Grade.create(score: 80, comments:"Good" , student_id: student1.id, course_id: course5.id)
+grade3 = Grade.create(score: 50, comments: "Average", student_id: student2.id, course_id: course4.id)
+grade4 = Grade.create(score: 88, comments: "Excellent", student_id: student2.id, course_id: course3.id)
+grade5 = Grade.create(score: 40, comments: "Below average", student_id: student3.id, course_id: course2.id)
+grade6 = Grade.create(score: 70, comments: "Above average", student_id: student3.id, course_id: course1.id)
+
+#add more seeding
 
 
 puts'done seeding'
