@@ -10,7 +10,6 @@ class SessionsController < ApplicationController
     end
 
     def destroy
-    
         session[:student_id] = nil
         render json: {message: "Student successfully logged out"}, status: :ok
     end

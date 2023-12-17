@@ -1,12 +1,14 @@
 class FormsController < ApplicationController
-rescue_from ActiveRecord::RecordNotFound,with: :no_response
+    before_action :authenticate_admin, only: [:create,:update,:destroy]
+    rescue_from ActiveRecord::RecordNotFound,with: :no_response
+
     def index
         forms = Form.all
-        render jdon: forms, status: :ok
+        render json: forms
     end
    
     def show
-        form = Form.find(:id)
+        form = Form.find(params[:id])
         render json: form
     end
 
@@ -20,7 +22,7 @@ rescue_from ActiveRecord::RecordNotFound,with: :no_response
     end
 
     def update
-        form = Form.find(:id)
+        form = Form.find(params[:id])
         if form.update(form_params)
             render json: form, status: :ok
         else
@@ -29,7 +31,7 @@ rescue_from ActiveRecord::RecordNotFound,with: :no_response
     end
 
     def destroy
-        form = Form.find(:id)
+        form = Form.find(params[:id])
         form.destroy
         head :no_content
     end
@@ -42,5 +44,11 @@ rescue_from ActiveRecord::RecordNotFound,with: :no_response
     
     def no_response
     render json: {error: "Record does not exist"}, status: :unprocessable_entity
+     end
+
+     def authenticate_admin
+        unless current_admin
+            render json: {error: 'Admin action required!'},status: :unauthorized
+      end
      end
 end
