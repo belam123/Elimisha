@@ -1,9 +1,10 @@
 import React from 'react'
-
+import Login from './Components/pages/Login'
 function App() {
   return (
     <div>
-      <h1 className="text-4xl underline">App</h1></div>
+      <Login />
+     </div>
   )
 }
 
