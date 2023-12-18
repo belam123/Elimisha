@@ -4,7 +4,8 @@ import { BiLogoFacebook } from "react-icons/bi";
 import { BiLogoInstagram } from "react-icons/bi";
 
 const Login = () => {
-
+    const[email,setEmail] = useState('')
+    const[password,setPassword] = useState('')
     const [showPassword,setShowPassword] = useState(false)
 
     const handlePassowrd = () => {
@@ -15,7 +16,7 @@ const Login = () => {
       <div className="md:w-1/3 max-w-sm">
         <img
           src="https://static.vecteezy.com/system/resources/previews/005/879/539/non_2x/cloud-computing-modern-flat-concept-for-web-banner-design-man-enters-password-and-login-to-access-cloud-storage-for-uploading-and-processing-files-illustration-with-isolated-people-scene-free-vector.jpg"
-          alt="Sample image"
+          alt="ERROR 404"
         />
       </div>
       <div className="md:w-1/3 max-w-sm">
@@ -58,11 +59,15 @@ const Login = () => {
           className="text-sm w-full px-4 py-2 border border-solid border-gray-300 rounded"
           type="text"
           placeholder="Email Address"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <input
           className="text-sm w-full px-4 py-2 border border-solid border-gray-300 rounded mt-4"
           type={showPassword ? "text" : "password"}
           placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <div className="mt-4 flex justify-between font-semibold text-sm">
           <label className="flex text-slate-500 hover:text-slate-600 cursor-pointer">
