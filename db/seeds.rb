@@ -4,8 +4,16 @@ Dotenv.load('.env')
 admin1_password = ENV['ADMIN1_PASSWORD'] || 'default_password'
 admin2_password = ENV['ADMIN2_PASSWORD'] || 'default_password'
 
+stud1_password = ENV['STUD1_PASSWORD'] || 'default_password'
+stud2_password = ENV['STUD2_PASSWORD'] || 'default_password'
+stud3_password = ENV['STUD3_PASSWORD'] || 'default_password'
+
 hashed_password1 = BCrypt::Password.create(admin1_password)
 hashed_password2 = BCrypt::Password.create(admin2_password)
+hashed_password3 = BCrypt::Password.create(stud1_password)
+hashed_password4 = BCrypt::Password.create(stud2_password)
+hashed_password5 = BCrypt::Password.create(stud3_password)
+
 
 puts 'seeding...'
 
@@ -16,12 +24,12 @@ form4 = Form.create(class_number: 4, stream: "Green")
 
 #admins
 admin1 = Admin.create(email: "belammuia0@gmail.com", password: hashed_password1)
-admin2 = Admin.create(email: "clivemudigo@gmail.com", password: "nyalingu")
+admin2 = Admin.create(email: "clivemudigo@gmail.com", password: hashed_password2)
 
 #students
-student1 =  Student.create(first_name: "James", second_name: "Kamau", last_name: "Mashu", email: "kmashu@kibwareboys.ac.ke",password: "12345",password_confirmation: "12345", form_id: form1.id)
-student2 =  Student.create(first_name: "Brian", second_name: "Muchiri", last_name: "Nderitu",email: "bmuchiri@kibwareboys.ac.ke", password: "12345", password_confirmation: "12345",form_id: form4.id)
-student3 = Student.create(first_name: "Joshua", second_name: "Ochieng", last_name: "Aduor", email: "joduor@kibwareboys.ac.ke", password: "12345", password_confirmation: "12345", form_id: form2.id)
+student1 =  Student.create(first_name: "James", second_name: "Kamau", last_name: "Mashu", email: "kmashu@kibwareboys.ac.ke",password: hashed_password3,password_confirmation: hashed_password3, form_id: form1.id)
+student2 =  Student.create(first_name: "Brian", second_name: "Muchiri", last_name: "Nderitu",email: "bmuchiri@kibwareboys.ac.ke", password: hashed_password4, password_confirmation: hashed_password4,form_id: form4.id)
+student3 = Student.create(first_name: "Joshua", second_name: "Ochieng", last_name: "Aduor", email: "joduor@kibwareboys.ac.ke", password: hashed_password5, password_confirmation: hashed_password5, form_id: form2.id)
 
 #teachers
 teacher1 = Teacher.create(first_name: "Paul", last_name: "Wainaina", email: "balozi@gmail.com",department: "Soc1al sciences and humanities")
