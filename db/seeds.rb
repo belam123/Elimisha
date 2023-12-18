@@ -1,10 +1,12 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
+require 'dotenv'
+Dotenv.load('.env')
+
+admin1_password = ENV['ADMIN1_PASSWORD'] || 'default_password'
+admin2_password = ENV['ADMIN2_PASSWORD'] || 'default_password'
+
+hashed_password1 = BCrypt::Password.create(admin1_password)
+hashed_password2 = BCrypt::Password.create(admin2_password)
+
 puts 'seeding...'
 
 #forms 
@@ -13,7 +15,7 @@ form2 = Form.create(class_number:2, stream: "Purple")
 form4 = Form.create(class_number: 4, stream: "Green")
 
 #admins
-admin1 = Admin.create(email: "belammuia0@gmail.com", password: "belam")
+admin1 = Admin.create(email: "belammuia0@gmail.com", password: hashed_password1)
 admin2 = Admin.create(email: "clivemudigo@gmail.com", password: "nyalingu")
 
 #students
