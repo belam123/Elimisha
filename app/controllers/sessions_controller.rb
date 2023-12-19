@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
       session[:student_id] = student.id
       render json: student, status: :ok
     else
-      render json: { error: 'Invalid email or password' }, status: :unprocessable_entity
+      render json: { error: 'Invalid credentials' }, status: :unprocessable_entity
     end
   end
 
