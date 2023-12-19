@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { AiOutlineTwitter } from "react-icons/ai";
 import { BiLogoFacebook } from "react-icons/bi";
 import { BiLogoInstagram } from "react-icons/bi";
+const apiUrl = import.meta.env.VITE_API_URL;
 // import { useNavigate } from "react-router-dom";
 const Login = () => {
     const[email,setEmail] = useState('')
@@ -10,13 +11,16 @@ const Login = () => {
     const [errorMessage,setErrorMessage] = useState([])
     // const navigate = useNavigate()
 
+    
+
     const handlePassowrd = () => {
         setShowPassword(!showPassword)
     }
 
     const handleLogin = () => {
+
         const userData = {email, password}
-        fetch('http://localhost:3000/login',{
+        fetch(`${apiUrl}/login`,{
             method: 'POST',
             headers: {
                 'Content-Type' : 'application/json'
