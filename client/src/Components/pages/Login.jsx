@@ -2,14 +2,39 @@ import React, { useState } from "react";
 import { AiOutlineTwitter } from "react-icons/ai";
 import { BiLogoFacebook } from "react-icons/bi";
 import { BiLogoInstagram } from "react-icons/bi";
-
+// import { useNavigate } from "react-router-dom";
 const Login = () => {
     const[email,setEmail] = useState('')
     const[password,setPassword] = useState('')
     const [showPassword,setShowPassword] = useState(false)
+    const [errorMessage,setErrorMessage] = useState([])
+    // const navigate = useNavigate()
 
     const handlePassowrd = () => {
         setShowPassword(!showPassword)
+    }
+
+    const handleLogin = () => {
+        const userData = {email, password}
+        fetch('http://localhost:3000/login',{
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify(userData)
+        })
+        .then(response => {
+            if (!response.ok) {
+              return response.json().then(errorDetails => {
+                setErrorMessage([errorDetails.error]);
+              });
+            } else {
+              navigate('/');
+            }
+          })
+          .catch((error) => {
+            console.error("Login failed:", error);
+          });
     }
   return (
     <section className="h-screen flex flex-col md:flex-row justify-center space-y-10 md:space-y-0 md:space-x-16 items-center my-2 mx-5 md:mx-0 md:my-0">
@@ -69,6 +94,13 @@ const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        {errorMessage.length > 0 && (
+  <div className="mt-4 text-red-500">
+    {errorMessage.map((error, index) => (
+      <p key={index}>{error}</p>
+    ))}
+  </div>
+)}
         <div className="mt-4 flex justify-between font-semibold text-sm">
           <label className="flex text-slate-500 hover:text-slate-600 cursor-pointer">
             <input className="mr-1" type="checkbox" onClick={handlePassowrd}/>
@@ -85,6 +117,7 @@ const Login = () => {
           <button
             className="mt-4 bg-blue-600 hover:bg-blue-700 px-4 py-2 text-white uppercase rounded text-xs tracking-wider"
             type="submit"
+            onClick={handleLogin}
           >
             Login
           </button>
