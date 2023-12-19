@@ -47,7 +47,7 @@ voucher3 = Voucher.create(voucher_amount: 10500, expiry_date: '20-11-2024', stud
 #fees
 fee1 =  Fee.create(amount: 1500, due_date: '04-04-2023', payment_status: "Not cleared", student_id: student1.id)
 fee2 =  Fee.create(amount: 0, due_date: 'NA', payment_status: "Cleared", student_id: student3.id)
-fee3 = Fee.create(amount: 0, due_date: 'NA', payment_status: 'cleared', student_id: student2.id)
+fee3 = Fee.create(amount: 0, due_date: 'NA', payment_status: 'Cleared', student_id: student2.id)
 
 #courses
 course1 = Course.create(course_name: "Math",course_des: "121", teacher_id: teacher3.id)
@@ -69,3 +69,4 @@ grade6 = Grade.create(score: 70, comments: "Above average", student_id: student3
 
 
 puts'done seeding'
+puts "ADMIN1_PASSWORD: #{ENV['ADMIN1_PASSWORD']}"
