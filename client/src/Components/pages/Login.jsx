@@ -10,13 +10,16 @@ const Login = () => {
     const [errorMessage,setErrorMessage] = useState([])
     // const navigate = useNavigate()
 
+    const apiUrl = process.env.REACT_APP_API_URL;
+
     const handlePassowrd = () => {
         setShowPassword(!showPassword)
     }
 
     const handleLogin = () => {
+
         const userData = {email, password}
-        fetch('http://localhost:3000/login',{
+        fetch(`${apiUrl}/login`,{
             method: 'POST',
             headers: {
                 'Content-Type' : 'application/json'
