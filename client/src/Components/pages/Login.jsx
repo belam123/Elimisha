@@ -3,13 +3,16 @@ import { AiOutlineTwitter } from "react-icons/ai";
 import { BiLogoFacebook } from "react-icons/bi";
 import { BiLogoInstagram } from "react-icons/bi";
 const apiUrl = import.meta.env.VITE_API_URL;
-// import { useNavigate } from "react-router-dom";
-const Login = () => {
+import { useNavigate } from "react-router-dom";
+import { Routes, Route, Navigate } from 'react-router-dom';
+import Dashboard from "./Dashboard";
+
+const Login = ({isLoggedIn, onSuccessfulLogin}) => {
     const[email,setEmail] = useState('')
     const[password,setPassword] = useState('')
     const [showPassword,setShowPassword] = useState(false)
     const [errorMessage,setErrorMessage] = useState([])
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
 
     
 
@@ -33,13 +36,17 @@ const Login = () => {
                 setErrorMessage([errorDetails.error]);
               });
             } else {
-              navigate('/');
+              onSuccessfulLogin();
             }
           })
           .catch((error) => {
             console.error("Login failed:", error);
           });
+
     }
+    if(isLoggedIn){
+      return <Navigate to="/dashboard" />;
+   }
   return (
     <section className="h-screen flex flex-col md:flex-row justify-center space-y-10 md:space-y-0 md:space-x-16 items-center my-2 mx-5 md:mx-0 md:my-0">
       <div className="md:w-1/3 max-w-sm">

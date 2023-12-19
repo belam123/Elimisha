@@ -1,13 +1,23 @@
-import React from 'react'
-import Login from './Components/pages/Login'
-import Register from './Components/pages/Register'
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes,Route } from 'react-router-dom';
+import Login from './Components/pages/Login';
+import Dashboard from './Components/pages/Dashboard';
 
 function App() {
+  const[isLoggedIn,setIsLoggedIn] = useState(false)
+
+  const handleSuccessfulLogin = () => {
+    setIsLoggedIn(true);
+  }
   return (
-    <div>
-      <Login />
-     </div>
-  )
+    <Router>
+      <Routes>
+     <Route path='/login' element={
+      < Login onSuccessfulLogin={handleSuccessfulLogin} isLoggedIn={isLoggedIn} /> } />
+    <Route path='/dashboard/*' element={<Dashboard />} />
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;
