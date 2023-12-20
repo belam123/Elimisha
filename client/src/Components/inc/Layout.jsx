@@ -1,11 +1,11 @@
 // Layout.jsx
-
 import React from 'react';
-import Nav from './Nav';
-import Sidebar from './Sidebar';
+import Nav from '../pages/Nav';
+import Sidebar from '../pages/Sidebar';
 import { Outlet, Routes, Route } from 'react-router-dom';
-import Logout from './Logout';
-const Layout = () => {
+import Logout from '../pages/Logout';
+import Student from '../pages/Student';
+const Layout = ({ isLoggedIn }) => {
   return (
     <div>
       <Nav />
@@ -14,8 +14,7 @@ const Layout = () => {
         <div className=" w-full"> 
         <Routes>
             <Route path="logout" element={<Logout />} />
-        
-            {/* Add other routes as needed */}
+            <Route path="student-info" element={<Student isLoggedIn={isLoggedIn} />} />
           </Routes>
           <Outlet />
 

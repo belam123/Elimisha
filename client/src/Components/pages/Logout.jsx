@@ -23,7 +23,7 @@ function Logout() {
       })
       .then(responseData => {
         setLogoutMessage(responseData.message);
-        navigate('/login');
+        navigate('/');
       })
       .catch(error => {
         console.error('Logout failed:', error);
