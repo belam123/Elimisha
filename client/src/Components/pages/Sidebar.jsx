@@ -1,15 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Outlet, Routes, Route } from 'react-router-dom';
 import { AiOutlineBook, AiOutlineUser, AiOutlineDollar, AiOutlineAmazon, AiOutlineLogout, AiOutlineTeam, AiOutlineSetting } from 'react-icons/ai';
+
 
 function Sidebar() {
   return (
-    <div className="bg-gray-100 h-screen flex">
+    <div className="bg-gray h-screen flex">
       <div className="bg-white shadow-lg w-64">
         <div className="flex-col pt-5 flex overflow-y-auto">
           <div className="h-full flex-col justify-between px-4 flex">
             <div className="space-y-4">
-            <LinkButton icon={<AiOutlineUser />} text="Student Information" to="/dashboard/student-info" />
+              <LinkButton icon={<AiOutlineUser />} text="Student Information" to="/dashboard/student-info" />
               <LinkButton icon={<AiOutlineAmazon />} text="Voucher" to="/dashboard/voucher" />
               <LinkButton icon={<AiOutlineBook />} text="Grades" to="/dashboard/grades" />
               <LinkButton icon={<AiOutlineDollar />} text="Fees" to="/dashboard/fees" />
@@ -21,7 +22,6 @@ function Sidebar() {
         </div>
       </div>
 
-     
     </div>
   );
 }

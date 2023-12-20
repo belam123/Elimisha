@@ -32,10 +32,13 @@ function Logout() {
   };
 
   return (
+    <div className="flex h-screen items-center justify-center">
     <div>
       {logoutMessage && <p>{logoutMessage}</p>}
       <button onClick={handleLogout}>Logout</button>
     </div>
+  </div>
+  
   );
 }
 

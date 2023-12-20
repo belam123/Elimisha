@@ -19,9 +19,10 @@ class StudentsController < ApplicationController
         render json: { error: 'Student not found' }, status: :not_found
       end
     else
-      render json: { error: 'Student ID not found in session' }, status: :unprocessable_entity
+      render json: { error: 'Unauthorized' }, status: :unauthorized
     end
   end
+  
 
   private
 
