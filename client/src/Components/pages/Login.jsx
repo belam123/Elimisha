@@ -1,31 +1,35 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { AiOutlineTwitter } from "react-icons/ai";
 import { BiLogoFacebook } from "react-icons/bi";
 import { BiLogoInstagram } from "react-icons/bi";
 const apiUrl = import.meta.env.VITE_API_URL;
-import { useNavigate } from "react-router-dom";
 import { Routes, Route, Navigate } from 'react-router-dom';
-import Dashboard from "./Dashboard";
 
-const Login = ({isLoggedIn, onSuccessfulLogin}) => {
+
+const Login = ({isLoggedIn, onSuccessfulLogin }) => {
     const[email,setEmail] = useState('')
     const[password,setPassword] = useState('')
     const [showPassword,setShowPassword] = useState(false)
     const [errorMessage,setErrorMessage] = useState([])
-    const navigate = useNavigate()
-
     
 
+    useEffect(() => {
+      const accessToken = localStorage.getItem('access_token');
+      if (accessToken) {
+        onSuccessfulLogin(); 
+      }
+    }, []); 
+  
     const handlePassowrd = () => {
-        setShowPassword(!showPassword)
-    }
-
+      setShowPassword(!showPassword);
+    };
+  
     const handleLogin = () => {
       const userData = { email, password };
       fetch(`${apiUrl}/login`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(userData),
       })
@@ -39,16 +43,15 @@ const Login = ({isLoggedIn, onSuccessfulLogin}) => {
           return response.json();
         })
         .then((data) => {
-          console.log('Student ID:', data.student_id);
-          sessionStorage.setItem('student_id', data.student_id);
-          onSuccessfulLogin(); // Move onSuccessfulLogin here to ensure it's only called on successful login
+          localStorage.setItem("access_token", data.access_token);
+          onSuccessfulLogin();
         })
         .catch((error) => {
-          console.error('Login failed:', error);
-          // Handle login error, if needed
+          console.error("Login failed:", error);
         });
     };
     
+   
     if(isLoggedIn){
       return <Navigate to="/dashboard" />;
    }

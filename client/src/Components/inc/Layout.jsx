@@ -5,16 +5,17 @@ import Sidebar from '../pages/Sidebar';
 import { Outlet, Routes, Route } from 'react-router-dom';
 import Logout from '../pages/Logout';
 import Student from '../pages/Student';
-const Layout = ({ isLoggedIn }) => {
+const Layout = ({onLogout}) => {
   return (
     <div>
       <Nav />
       <div className="flex">
-        <Sidebar />
+        <Sidebar onLogout={onLogout}/>
         <div className=" w-full"> 
         <Routes>
-            <Route path="logout" element={<Logout />} />
-            <Route path="student-info" element={<Student isLoggedIn={isLoggedIn} />} />
+        <Route path="student-info" element={<Student />} />
+          
+  
           </Routes>
           <Outlet />
 
