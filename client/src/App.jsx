@@ -11,6 +11,10 @@ function App() {
     setIsLoggedIn(true);
   }
 
+    const onLogout = () => {
+      setIsLoggedIn(false)  
+  }
+
   return (
     <Router>
       <Routes>
@@ -20,7 +24,7 @@ function App() {
         />
         <Route
           path='/dashboard/*'
-          element={<Dashboard isLoggedIn={isLoggedIn} />}
+          element={<Dashboard isLoggedIn={isLoggedIn} onLogout={onLogout} />}
         />
       </Routes>
     </Router>

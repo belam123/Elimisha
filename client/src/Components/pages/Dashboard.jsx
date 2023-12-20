@@ -2,7 +2,7 @@ import React from 'react';
 import { Navigate } from 'react-router-dom';
 import Layout from '../inc/Layout';
 
-function Dashboard({ isLoggedIn }) {
+function Dashboard({ isLoggedIn , onLogout}) {
   console.log('Dashboard rendered');
 
   if (!isLoggedIn) {
@@ -11,9 +11,9 @@ function Dashboard({ isLoggedIn }) {
 
   return (
     <>
-      <Layout isLoggedIn={isLoggedIn} />
+      <Layout isLoggedIn={isLoggedIn} onLogout={onLogout} />
     </>
   );
 }
 
-export default Dashboard;
+export default Dashboard; 

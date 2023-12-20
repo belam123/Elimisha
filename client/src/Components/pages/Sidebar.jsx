@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link, Outlet, Routes, Route } from 'react-router-dom';
 import { AiOutlineBook, AiOutlineUser, AiOutlineDollar, AiOutlineAmazon, AiOutlineLogout, AiOutlineTeam, AiOutlineSetting } from 'react-icons/ai';
+import Logout from './Logout';
 
-
-function Sidebar() {
+function Sidebar({onLogout}) {
   return (
     <div className="bg-gray h-screen flex">
       <div className="bg-white shadow-lg w-64">
@@ -16,8 +16,9 @@ function Sidebar() {
               <LinkButton icon={<AiOutlineDollar />} text="Fees" to="/dashboard/fees" />
               <LinkButton icon={<AiOutlineTeam />} text="Teachers" to="/dashboard/teachers" />
               <LinkButton icon={<AiOutlineSetting />} text="Settings" to="/dashboard/settings" />
-              <LinkButton icon={<AiOutlineLogout />} text="Logout" to="/dashboard/logout" />
+             
             </div>
+            <Logout onLogout={onLogout} />
           </div>
         </div>
       </div>
