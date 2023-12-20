@@ -21,29 +21,34 @@ const Login = ({isLoggedIn, onSuccessfulLogin}) => {
     }
 
     const handleLogin = () => {
-
-        const userData = {email, password}
-        fetch(`${apiUrl}/login`,{
-            method: 'POST',
-            headers: {
-                'Content-Type' : 'application/json'
-            },
-            body: JSON.stringify(userData)
+      const userData = { email, password };
+      fetch(`${apiUrl}/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            return response.json().then((errorDetails) => {
+              setErrorMessage([errorDetails.error]);
+              throw new Error(errorDetails.error);
+            });
+          }
+          return response.json();
         })
-        .then(response => {
-            if (!response.ok) {
-              return response.json().then(errorDetails => {
-                setErrorMessage([errorDetails.error]);
-              });
-            } else {
-              onSuccessfulLogin();
-            }
-          })
-          .catch((error) => {
-            console.error("Login failed:", error);
-          });
-
-    }
+        .then((data) => {
+          console.log('Student ID:', data.student_id);
+          sessionStorage.setItem('student_id', data.student_id);
+          onSuccessfulLogin(); // Move onSuccessfulLogin here to ensure it's only called on successful login
+        })
+        .catch((error) => {
+          console.error('Login failed:', error);
+          // Handle login error, if needed
+        });
+    };
+    
     if(isLoggedIn){
       return <Navigate to="/dashboard" />;
    }
