@@ -11,11 +11,13 @@ class StudentsController < ApplicationController
   def show
     begin
       student_id = session[:student_id]
-      # Add debugging statements here
-      puts "Entire Session: #{session.inspect}"
-      puts "Student ID: #{student_id}"
-  
-      if student_id
+
+      # Add debugging statements
+puts "Entire Session: #{session.inspect}"
+puts "Student ID: #{student_id}"
+
+
+      if student_id.present?
         student = Student.find_by(id: student_id)
         if student
           render json: student, status: :ok
@@ -23,15 +25,15 @@ class StudentsController < ApplicationController
           render json: { error: 'Student not found' }, status: :not_found
         end
       else
-        render json: { error: 'Unauthorized' }, status: :unauthorized
+        render json: { error: 'Unauthorized - Student ID not present in session' }, status: :unauthorized
       end
-  
     rescue StandardError => e
       puts "Error: #{e.message}"
       puts e.backtrace.join("\n")
       render json: { error: 'Internal Server Error' }, status: :internal_server_error
     end
   end
+
   
   
   
