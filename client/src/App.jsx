@@ -12,7 +12,7 @@ function App() {
   return (
     <Router>
       <Routes>
-     <Route path='/login' element={
+     <Route path='/' element={
       < Login onSuccessfulLogin={handleSuccessfulLogin} isLoggedIn={isLoggedIn} /> } />
     <Route path='/dashboard/*' element={<Dashboard />} />
       </Routes>
