@@ -8,20 +8,33 @@ class StudentsController < ApplicationController
       render json: { errors: student.errors.full_messages }, status: :unprocessable_entity
     end
   end
-
   def show
-    student_id = session[:student_id]
-    if student_id
-      student = Student.find_by(id: student_id)
-      if student
-        render json: student, status: :ok
+    begin
+      student_id = session[:student_id]
+      # Add debugging statements here
+      puts "Entire Session: #{session.inspect}"
+      puts "Student ID: #{student_id}"
+  
+      if student_id
+        student = Student.find_by(id: student_id)
+        if student
+          render json: student, status: :ok
+        else
+          render json: { error: 'Student not found' }, status: :not_found
+        end
       else
-        render json: { error: 'Student not found' }, status: :not_found
+        render json: { error: 'Unauthorized' }, status: :unauthorized
       end
-    else
-      render json: { error: 'Unauthorized' }, status: :unauthorized
+  
+    rescue StandardError => e
+      puts "Error: #{e.message}"
+      puts e.backtrace.join("\n")
+      render json: { error: 'Internal Server Error' }, status: :internal_server_error
     end
   end
+  
+  
+  
   
 
   private
