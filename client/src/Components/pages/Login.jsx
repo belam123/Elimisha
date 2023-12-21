@@ -12,6 +12,7 @@ const Login = ({ isLoggedIn, onSuccessfulLogin, setStudentDetails }) => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState([]);
+  const [file, setFile] = useState(null);
 
   useEffect(() => {
     const accessToken = localStorage.getItem('access_token');
@@ -28,7 +29,7 @@ const Login = ({ isLoggedIn, onSuccessfulLogin, setStudentDetails }) => {
   };
 
   const handleLogin = () => {
-    const userData = { email, password };
+    const userData = { email, password};
     fetch(`${apiUrl}/login`, {
       method: "POST",
       headers: {
@@ -55,6 +56,7 @@ const Login = ({ isLoggedIn, onSuccessfulLogin, setStudentDetails }) => {
           last_name: data.last_name,
           email: data.email,
           form_id: data.form_id,
+          image: data.image
         });
 
         onSuccessfulLogin({
@@ -63,7 +65,11 @@ const Login = ({ isLoggedIn, onSuccessfulLogin, setStudentDetails }) => {
           last_name: data.last_name,
           email: data.email,
           form_id: data.form_id,
+          image: data.image,
         });
+        if (data.image) {
+          console.log("Image URL:", data.image);
+        }
 
         setStudentDetails({
           first_name: data.first_name,
@@ -71,6 +77,7 @@ const Login = ({ isLoggedIn, onSuccessfulLogin, setStudentDetails }) => {
           last_name: data.last_name,
           email: data.email,
           form_id: data.form_id,
+          image: data.image,
         });
       })
       .catch((error) => {
@@ -78,14 +85,14 @@ const Login = ({ isLoggedIn, onSuccessfulLogin, setStudentDetails }) => {
       });
   };
 
+
+
   if (isLoggedIn) {
     return <Navigate to="/dashboard" />;
   }
 
    
-    if(isLoggedIn){
-      return <Navigate to="/dashboard" />;
-   }
+  
   return (
     <section className="h-screen flex flex-col md:flex-row justify-center space-y-10 md:space-y-0 md:space-x-16 items-center my-2 mx-5 md:mx-0 md:my-0">
       <div className="md:w-1/3 max-w-sm">
