@@ -12,7 +12,7 @@ const Login = ({ isLoggedIn, onSuccessfulLogin, setStudentDetails }) => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState([]);
-  const [file, setFile] = useState(null);
+
 
   useEffect(() => {
     const accessToken = localStorage.getItem('access_token');

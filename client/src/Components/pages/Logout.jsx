@@ -6,8 +6,8 @@ function Logout({ onLogout }) {
 
   const handleLogout = () => {
     localStorage.removeItem('access_token');
-    onLogout(); // Update the parent component's state
-    navigate('/'); // Navigate to the login page
+    onLogout(); 
+    navigate('/'); 
   };
 
   return (
