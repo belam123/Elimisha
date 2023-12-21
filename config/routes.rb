@@ -14,7 +14,6 @@ Rails.application.routes.draw do
   resources :students, only: [:create, :show]
   post '/register', to: 'students#create'
   post 'login', to: 'sessions#create'
-  get '/me', to: 'students#show'
   delete 'logout', to: 'sessions#destroy'
 
   # Root path route

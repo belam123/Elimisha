@@ -2,8 +2,8 @@ import React from 'react';
 import { Navigate } from 'react-router-dom';
 import Layout from '../inc/Layout';
 
-function Dashboard({ isLoggedIn , onLogout}) {
-  console.log('Dashboard rendered');
+function Dashboard({ isLoggedIn , onLogout, studentDetails,setStudentDetails}) {
+
 
   if (!isLoggedIn) {
     return <Navigate to="/" />;
@@ -11,7 +11,7 @@ function Dashboard({ isLoggedIn , onLogout}) {
 
   return (
     <>
-      <Layout isLoggedIn={isLoggedIn} onLogout={onLogout} />
+      <Layout isLoggedIn={isLoggedIn} onLogout={onLogout} studentDetails={studentDetails} setStudentDetails={setStudentDetails} />
     </>
   );
 }
