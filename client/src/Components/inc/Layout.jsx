@@ -7,7 +7,7 @@ import Student from '../pages/Student';
 const Layout = ({onLogout, studentDetails,setStudentDetails}) => {
   return (
     <div>
-      <Nav />
+      <Nav studentDetails={studentDetails} />
       <div className="flex">
         <Sidebar onLogout={onLogout}/>
         <div className=" w-full"> 
