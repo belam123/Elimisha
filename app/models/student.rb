@@ -1,7 +1,7 @@
 class Student < ApplicationRecord
   before_create :generate_access_token
 has_secure_password
-
+has_one_attached :image
   belongs_to :form, class_name: 'Form'
   has_many :fees
   has_many :vouchers
