@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { AiOutlineTwitter } from 'react-icons/ai';
 import { BiLogoFacebook, BiLogoInstagram } from 'react-icons/bi';
+const apiUrl = import.meta.env.VITE_API_URL;
+
 
 function Register() {
     const[first_name,setFirstName] = useState('')
@@ -10,7 +12,35 @@ function Register() {
     const[password,setPassword] = useState('')
     const[password_confirmation, setConfirmation] = useState('')
     const[form_id, setFormId] = useState('')
+    const [file, setFile] = useState(null);
 
+
+    const handleFileChange = (e) => {
+      const selectedFile = e.target.files[0];
+      setFile(selectedFile);
+    };
+    
+    const handleRegister = () => {
+      const formData = new FormData();
+      formData.append('student[first_name]', first_name);
+      formData.append('student[second_name]', second_name);
+      formData.append('student[last_name]', last_name);
+      formData.append('student[email]', email);
+      formData.append('student[password]', password);
+      formData.append('student[password_confirmation]', password_confirmation);
+      formData.append('student[form_id]', form_id);
+      formData.append('student[image]', file);
+    
+      fetch(`${apiUrl}/register`, {
+        method: 'POST',
+        body:formData,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          // Handle success, e.g., show a success message
+        })
+        .catch((error) => console.error(error));
+    };
   return (
     <section className="h-screen flex flex-col md:flex-row justify-center space-y-10 md:space-y-0 md:space-x-16 items-center my-2 mx-5 md:mx-0 md:my-0">
       <div className="md:w-1/3 max-w-sm">
@@ -83,6 +113,14 @@ function Register() {
           onChange={(e) => setTLastName(e.target.value)}
         />
         <input
+        type="file"
+        accept="image/*"
+        name="image"
+        id="image"
+        onChange={handleFileChange}
+        className="text-sm w-full px-4 py-2 border border-solid border-gray-300 rounded mb-3"
+      />
+        <input
           className="text-sm w-full px-4 py-2 border border-solid border-gray-300 rounded mb-3"
           type="email"
           placeholder="Example@kibwareboys.ac.ke"
@@ -103,8 +141,11 @@ function Register() {
           value={password_confirmation}
           onChange={(e) => setConfirmation(e.target.value)}
         />
-        <select className="text-sm w-full px-4 py-2 border border-solid border-gray-300 rounded mb-3">
-          <option value={form_id} onChange={(e) => setFormId(e.target.value)} disabled hidden>
+        <select className="text-sm w-full px-4 py-2 border border-solid border-gray-300 rounded mb-3"
+        value={form_id} 
+        onChange={(e) => setFormId(e.target.value)}
+        >
+          <option value="" disabled hidden>
             Select a form
           </option>
           <option value="1">Form 1</option>
@@ -120,6 +161,7 @@ function Register() {
           <button
             className="mt-4 bg-blue-600 hover:bg-blue-700 px-4 py-2 text-white uppercase rounded text-xs tracking-wider"
             type="submit"
+            onClick={handleRegister}
           >
             Register
           </button>
