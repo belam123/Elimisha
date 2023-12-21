@@ -3,54 +3,85 @@ import { AiOutlineTwitter } from "react-icons/ai";
 import { BiLogoFacebook } from "react-icons/bi";
 import { BiLogoInstagram } from "react-icons/bi";
 const apiUrl = import.meta.env.VITE_API_URL;
-import { Routes, Route, Navigate } from 'react-router-dom';
+import {  Navigate } from 'react-router-dom';
 
 
-const Login = ({isLoggedIn, onSuccessfulLogin }) => {
-    const[email,setEmail] = useState('')
-    const[password,setPassword] = useState('')
-    const [showPassword,setShowPassword] = useState(false)
-    const [errorMessage,setErrorMessage] = useState([])
-    
 
-    useEffect(() => {
-      const accessToken = localStorage.getItem('access_token');
-      if (accessToken) {
-        onSuccessfulLogin(); 
-      }
-    }, []); 
-  
-    const handlePassowrd = () => {
-      setShowPassword(!showPassword);
-    };
-  
-    const handleLogin = () => {
-      const userData = { email, password };
-      fetch(`${apiUrl}/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userData),
+const Login = ({ isLoggedIn, onSuccessfulLogin, setStudentDetails }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState([]);
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem('access_token');
+    const userDetailsString = localStorage.getItem('user_details');
+    const userDetails = userDetailsString ? JSON.parse(userDetailsString) : null;
+
+    if (accessToken && userDetails) {
+      onSuccessfulLogin(userDetails);
+    }
+  }, [onSuccessfulLogin]);
+
+  const handlePassowrd = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleLogin = () => {
+    const userData = { email, password };
+    fetch(`${apiUrl}/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          return response.json().then((errorDetails) => {
+            setErrorMessage([errorDetails.error]);
+            throw new Error(errorDetails.error);
+          });
+        }
+        return response.json();
       })
-        .then((response) => {
-          if (!response.ok) {
-            return response.json().then((errorDetails) => {
-              setErrorMessage([errorDetails.error]);
-              throw new Error(errorDetails.error);
-            });
-          }
-          return response.json();
-        })
-        .then((data) => {
-          localStorage.setItem("access_token", data.access_token);
-          onSuccessfulLogin();
-        })
-        .catch((error) => {
-          console.error("Login failed:", error);
+      .then((data) => {
+        localStorage.setItem("access_token", data.access_token);
+        localStorage.setItem('user_details', JSON.stringify(data));
+
+        console.log("Student details:", {
+          first_name: data.first_name,
+          second_name: data.second_name,
+          last_name: data.last_name,
+          email: data.email,
+          form_id: data.form_id,
         });
-    };
-    
+
+        onSuccessfulLogin({
+          first_name: data.first_name,
+          second_name: data.second_name,
+          last_name: data.last_name,
+          email: data.email,
+          form_id: data.form_id,
+        });
+
+        setStudentDetails({
+          first_name: data.first_name,
+          second_name: data.second_name,
+          last_name: data.last_name,
+          email: data.email,
+          form_id: data.form_id,
+        });
+      })
+      .catch((error) => {
+        console.error("Login failed:", error);
+      });
+  };
+
+  if (isLoggedIn) {
+    return <Navigate to="/dashboard" />;
+  }
+
    
     if(isLoggedIn){
       return <Navigate to="/dashboard" />;

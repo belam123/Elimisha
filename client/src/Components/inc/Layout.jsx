@@ -3,9 +3,8 @@ import React from 'react';
 import Nav from '../pages/Nav';
 import Sidebar from '../pages/Sidebar';
 import { Outlet, Routes, Route } from 'react-router-dom';
-import Logout from '../pages/Logout';
 import Student from '../pages/Student';
-const Layout = ({onLogout}) => {
+const Layout = ({onLogout, studentDetails,setStudentDetails}) => {
   return (
     <div>
       <Nav />
@@ -13,7 +12,7 @@ const Layout = ({onLogout}) => {
         <Sidebar onLogout={onLogout}/>
         <div className=" w-full"> 
         <Routes>
-        <Route path="student-info" element={<Student />} />
+        <Route path="student-info" element={<Student  studentDetails={studentDetails} setStudentDetails={setStudentDetails} />} />
           
   
           </Routes>

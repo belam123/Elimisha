@@ -6,11 +6,15 @@ import Dashboard from './Components/pages/Dashboard';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+   const [studentDetails, setStudentDetails] = useState(null);
 
-  const handleSuccessfulLogin = () => {
+
+   const handleSuccessfulLogin = (data) => {
     setIsLoggedIn(true);
-  }
-
+    setStudentDetails(data);
+    
+  };
+  
     const onLogout = () => {
       setIsLoggedIn(false)  
   }
@@ -20,11 +24,11 @@ function App() {
       <Routes>
         <Route
           path='/'
-          element={<Login onSuccessfulLogin={handleSuccessfulLogin} isLoggedIn={isLoggedIn} />}
+          element={<Login onSuccessfulLogin={handleSuccessfulLogin} isLoggedIn={isLoggedIn} setStudentDetails={setStudentDetails}/>}
         />
         <Route
           path='/dashboard/*'
-          element={<Dashboard isLoggedIn={isLoggedIn} onLogout={onLogout} />}
+          element={<Dashboard isLoggedIn={isLoggedIn} onLogout={onLogout}  studentDetails={studentDetails} />}
         />
       </Routes>
     </Router>
