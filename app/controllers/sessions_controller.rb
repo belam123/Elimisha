@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
 
     if student && student.authenticate(params[:password])
       session[:student_id] = student.id
-      render json: student, status: :ok
+      render json: student, status: :ok, serializer: StudentSerializer
     else
       render json: { error: 'Invalid credentials' }, status: :unprocessable_entity
     end

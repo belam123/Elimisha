@@ -44,8 +44,11 @@ function Nav({studentDetails}) {
                   absolute -top-px -right-1">2</p>
                   </div>
                   <div className="justify-center items-center flex relative">
-                    <img  src={`${apiUrl}${studentDetails.image}`}
-                      className="object-cover btn- h-9 w-9 rounded-full mr-2 bg-gray-300" alt="" />
+                    <img
+                    src={studentDetails.image ? `${apiUrl}${studentDetails.image}` : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'}
+                    className="object-cover btn- h-9 w-9 rounded-full mr-2 bg-gray-300"
+                    alt=""
+                  /> 
                     <p className="font-semibold text-sm">{studentDetails.first_name} {studentDetails.last_name}</p>
                   </div>
                 </div>

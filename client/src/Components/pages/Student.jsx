@@ -9,15 +9,23 @@ function Student({ studentDetails }) {
       <div className="bg-white shadow-lg rounded-lg overflow-hidden p-4">
         {studentDetails ? (
           <div className="text-center">
-            {studentDetails.image && (
-              <div className="mb-4">
-                <img
-                  className="w-64 h-64 object-cover rounded-full mx-auto"
-                  src={`${apiUrl}${studentDetails.image}`}
-                  alt="Student Image"
-                />
-              </div>
-            )}
+            {studentDetails.image ? (
+  <div className="mb-4">
+    <img
+      className="w-64 h-64 object-cover rounded-full mx-auto"
+      src={`${apiUrl}${studentDetails.image}`}
+      alt="Student Image"
+    />
+  </div>
+) : (
+  <div className="mb-4">
+    <img
+      className="w-64 h-64 object-cover rounded-full mx-auto"
+      src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+      alt="Default Image"
+    />
+  </div>
+)}
             <div className="border-t mt-4 pt-4">
               <p className="text-xl font-bold text-gray-800 mb-2">Student Information</p>
               <div className="flex flex-wrap">
