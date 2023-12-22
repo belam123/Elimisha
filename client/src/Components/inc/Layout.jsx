@@ -4,6 +4,7 @@ import Nav from '../pages/Nav';
 import Sidebar from '../pages/Sidebar';
 import { Outlet, Routes, Route } from 'react-router-dom';
 import Student from '../pages/Student';
+import Voucher from '../pages/Voucher';
 const Layout = ({onLogout, studentDetails,setStudentDetails}) => {
   return (
     <div>
@@ -13,7 +14,7 @@ const Layout = ({onLogout, studentDetails,setStudentDetails}) => {
         <div className=" w-full"> 
         <Routes>
         <Route path="student-info" element={<Student  studentDetails={studentDetails} setStudentDetails={setStudentDetails} />} />
-          
+          <Route path='voucher' element={<Voucher studentDetails={studentDetails} setStudentDetails={setStudentDetails} />} />
   
           </Routes>
           <Outlet />

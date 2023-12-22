@@ -56,8 +56,8 @@ function Student({ studentDetails }) {
                 <div className="w-full sm:w-1/2 lg:w-1/3 mb-4">
                   <div className="bg-gray-100 p-4 rounded">
                     <p className="text-gray-600 flex items-center">
-                      <span className="font-bold mr-2">form:</span>
-                      {studentDetails.form_id || 'Not provided'}
+                      <span className="font-bold mr-2">year:</span>
+                      {studentDetails.form.year || 'Not provided'}
                     </p>
                   </div>
                 </div>
