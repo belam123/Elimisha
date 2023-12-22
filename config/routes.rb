@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  
   namespace :admins do
     resources :grades, only: [:index, :show, :create, :update, :destroy]
     resources :forms, only: [:index, :show, :create, :update, :destroy]
@@ -6,6 +7,8 @@ Rails.application.routes.draw do
     resources :vouchers, only: [:index, :show, :create, :update, :destroy]
     resources :fees, only: [:index, :show, :create, :update, :destroy]
     resources :teachers, only: [:index, :show, :create, :update, :destroy]
+    resources :marks, only: [:index, :show, :create, :update, :destroy]
+    resources :subjects, only: [:index, :show, :create, :update, :destroy]
     post 'login', to: 'sessions#create'
     delete 'logout', to: 'sessions#destroy'
   end

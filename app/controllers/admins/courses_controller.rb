@@ -1,58 +1,36 @@
-class Admins::CoursesController < ApplicationController
-    before_action :authenticate_admin, only: [:create, :update, :destroy]
-    rescue_from ActiveRecord::RecordNotFound, with: :no_response
-  
-    def index
-      courses = Course.all
-      render json: courses
-    end
-  
-    def show
-      course = find_course
-      render json: course
-    end
-  
-    def create
-      course = Course.create(course_params)
-      if course.valid?
-        render json: course, status: :created
-      else
-        render json: { errors: course.errors.full_messages }, status: :unprocessable_entity
-      end
-    end
-  
-    def update
-      course = find_course
-      if course.update(course_params)
-        render json: course, status: :ok
-      else
-        render json: { error: 'Update was unsuccessful' }, status: :unprocessable_entity
-      end
-    end
-  
-    def destroy
-      course = find_course
-      course.destroy
-      head :no_content
-    end
-  
-    private
-  
-    def course_params
-      params.require(:course).permit(:course_name, :course_des)
-    end
-  
-    def find_course
-      Course.find(params[:id])
-    end
-  
-    def no_response
-      render json: { error: 'Record does not exist' }, status: :unprocessable_entity
-    end
-  
-    def authenticate_admin
-     unless current_admin
-      render json: { error: 'Admin action required!' }, status: :unprocessable_entity
-    end
+class Admins::CoursesController < Admins::BaseController
+  before_action :set_course, only: [:show, :update, :destroy]
+
+  def index
+    courses = Course.all
+    render json: courses
   end
-  
+
+  def show
+    render json: @course
+  end
+
+  def create
+    course = Course.create(course_params)
+    render_resource_or_errors(course)
+  end
+
+  def update
+    @course.update(course_params) ? render_updated(@course) : render_unprocessable_entity('Update was unsuccessful')
+  end
+
+  def destroy
+    @course.destroy
+    head :no_content
+  end
+
+  private
+
+  def course_params
+    params.require(:course).permit(:course_name, :course_des)
+  end
+
+  def set_course
+    @course = Course.find(params[:id])
+  end
+end

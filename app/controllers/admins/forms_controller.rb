@@ -1,54 +1,39 @@
-class Admins::FormsController < ApplicationController
-    before_action :authenticate_admin, only: [:create,:update,:destroy]
-    rescue_from ActiveRecord::RecordNotFound,with: :no_response
-
+class Admins::FormsController < Admins::BaseController
+    before_action :set_form, only: [:show, :update, :destroy]
+  
     def index
-        forms = Form.all
-        render json: forms
+      forms = Form.all
+      render json: forms
     end
-   
+  
     def show
-        form = Form.find(params[:id])
-        render json: form
+      render json: @form
     end
-
+  
     def create
-        form = Form.create(form_params)
-        if form.valid?
-            render json: form, status: :created
-        else
-            render json:{errors: form.errors.full_messages},status: :unprocessable_entity
-        end
+      form = Form.create(form_params)
+      render_resource_or_errors(form)
     end
-
+  
     def update
-        form = Form.find(params[:id])
-        if form.update(form_params)
-            render json: form, status: :ok
-        else
-            render json: {error: "Update was not successfully"}, status: :unprocessable_entity
-        end
+      @form.update(form_params) ? render_updated(@form) : render_unprocessable_entity('Update was not successfully')
     end
-
+  
     def destroy
-        form = Form.find(params[:id])
-        form.destroy
-        head :no_content
+      @form.destroy
+      head :no_content
     end
-
+  
     private
-
+  
     def form_params
-        params.require(:form).permit(:class_number,:stream)
+      params.require(:form).permit(:class_number, :stream)
     end
-    
-    def no_response
-    render json: {error: "Record does not exist"}, status: :unprocessable_entity
-     end
+  
+    def set_form
+      @form = Form.find(params[:id])
+    end
+  end
+  
 
-     def authenticate_admin
-        unless current_admin
-            render json: {error: 'Admin action required!'},status: :unauthorized
-      end
-     end
-end
+  

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_21_124653) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_22_124346) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -82,6 +82,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_21_124653) do
     t.index ["student_id"], name: "index_grades_on_student_id"
   end
 
+  create_table "marks", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "score"
+    t.bigint "student_id", null: false
+    t.bigint "subject_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["student_id"], name: "index_marks_on_student_id"
+    t.index ["subject_id"], name: "index_marks_on_subject_id"
+  end
+
   create_table "students", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "first_name"
     t.string "second_name"
@@ -92,6 +102,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_21_124653) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "access_token"
+  end
+
+  create_table "subjects", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "teachers", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -118,5 +134,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_21_124653) do
   add_foreign_key "fees", "students"
   add_foreign_key "grades", "courses"
   add_foreign_key "grades", "students"
+  add_foreign_key "marks", "students"
+  add_foreign_key "marks", "subjects"
   add_foreign_key "vouchers", "students"
 end
