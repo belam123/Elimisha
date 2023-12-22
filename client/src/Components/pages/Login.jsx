@@ -56,6 +56,14 @@ const Login = ({ isLoggedIn, onSuccessfulLogin, setStudentDetails }) => {
           expiryDate: voucher.expiry_date,
         }));
 
+        const subjects = data.subjects.map((subject) => ({
+             subjectName: subject.name
+        }));
+
+        const marks = data.marks.map((mark) => ({
+             studentMarks: mark.score
+        }));
+
 
         console.log("Student details:", {
           first_name: data.first_name,
@@ -64,7 +72,8 @@ const Login = ({ isLoggedIn, onSuccessfulLogin, setStudentDetails }) => {
           email: data.email,
           form: data.form.year,
           image: data.image,
-          vouchers: vouchers
+          vouchers: vouchers,
+          subjects: subjects
         });
 
         onSuccessfulLogin({
@@ -75,6 +84,8 @@ const Login = ({ isLoggedIn, onSuccessfulLogin, setStudentDetails }) => {
           form: data.form.year,
           image: data.image,
           vouchers: vouchers,
+          subjects: subjects,
+          marks: marks
         });
         
         setStudentDetails({
@@ -85,6 +96,7 @@ const Login = ({ isLoggedIn, onSuccessfulLogin, setStudentDetails }) => {
           form: data.form.year,
           image: data.image,
           vouchers: vouchers,
+          subjects: subjects
         });
       })
       .catch((error) => {
