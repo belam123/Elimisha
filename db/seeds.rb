@@ -18,13 +18,15 @@ hashed_password5 = BCrypt::Password.create(stud3_password)
 puts 'seeding...'
 
 #forms 
-form1 = Form.create(class_number: 1, stream: "Blue")
-form2 = Form.create(class_number:2, stream: "Purple")
-form4 = Form.create(class_number: 4, stream: "Green")
+form1 = Form.create(year: "freshman")
+form2 = Form.create(year: "sophomore")
+form3 = Form.create(year: "junior")
+form4 = Form.create(year: "senior")
 
 #admins
 admin1 = Admin.create(email: "belammuia0@gmail.com", password: hashed_password1)
 admin2 = Admin.create(email: "clivemudigo@gmail.com", password: hashed_password2)
+admin3 = Admin.create(email: "muia@gmail.com", password: '12345')
 
 #students
 student1 =  Student.create(first_name: "James", second_name: "Kamau", last_name: "Mashu", email: "kmashu@kibwareboys.ac.ke",password: hashed_password3,password_confirmation: hashed_password3, form_id: form1.id)
@@ -69,4 +71,4 @@ grade6 = Grade.create(score: 70, comments: "Above average", student_id: student3
 
 
 puts'done seeding'
-puts "ADMIN1_PASSWORD: #{ENV['ADMIN1_PASSWORD']}"
+
