@@ -67,6 +67,19 @@ grade4 = Grade.create(score: 88, comments: "Excellent", student_id: student2.id,
 grade5 = Grade.create(score: 40, comments: "Below average", student_id: student3.id, course_id: course2.id)
 grade6 = Grade.create(score: 70, comments: "Above average", student_id: student3.id, course_id: course1.id)
 
+#subject
+
+subject1 = Subject.create(name:'math')
+subject2 = Subject.create(name: 'eng')
+subject3 = Subject.create(name: 'sus')
+subject4 = Subject.create(name:'fil')
+subject5 = Subject.create(name: 'accounting')
+subject6 = Subject.create(name:'ist')
+subject7 = Subject.create(name:'music')
+subject8 = Subject.create(name:'french')
+subject9 = Subject.create(name:'arts')
+subject10 = Subject.create(name:'drama')
+
 #add more seeding
 
 
