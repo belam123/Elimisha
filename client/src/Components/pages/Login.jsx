@@ -50,13 +50,21 @@ const Login = ({ isLoggedIn, onSuccessfulLogin, setStudentDetails }) => {
         localStorage.setItem("access_token", data.access_token);
         localStorage.setItem('user_details', JSON.stringify(data));
 
+
+        const vouchers = data.vouchers.map((voucher) => ({
+          voucherAmount: voucher.voucher_amount,
+          expiryDate: voucher.expiry_date,
+        }));
+
+
         console.log("Student details:", {
           first_name: data.first_name,
           second_name: data.second_name,
           last_name: data.last_name,
           email: data.email,
-          form_id: data.form_id,
-          image: data.image
+          form: data.form.year,
+          image: data.image,
+          vouchers: vouchers
         });
 
         onSuccessfulLogin({
@@ -64,20 +72,19 @@ const Login = ({ isLoggedIn, onSuccessfulLogin, setStudentDetails }) => {
           second_name: data.second_name,
           last_name: data.last_name,
           email: data.email,
-          form_id: data.form_id,
+          form: data.form.year,
           image: data.image,
+          vouchers: vouchers,
         });
-        if (data.image) {
-          console.log("Image URL:", data.image);
-        }
-
+        
         setStudentDetails({
           first_name: data.first_name,
           second_name: data.second_name,
           last_name: data.last_name,
           email: data.email,
-          form_id: data.form_id,
+          form: data.form.year,
           image: data.image,
+          vouchers: vouchers,
         });
       })
       .catch((error) => {

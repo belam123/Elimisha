@@ -37,7 +37,7 @@ function Register() {
       })
         .then((res) => res.json())
         .then((data) => {
-          // Handle success, e.g., show a success message
+          
         })
         .catch((error) => console.error(error));
     };
@@ -123,7 +123,7 @@ function Register() {
         <input
           className="text-sm w-full px-4 py-2 border border-solid border-gray-300 rounded mb-3"
           type="email"
-          placeholder="Example@kibwareboys.ac.ke"
+          placeholder="Example@careercampus.ac.ke"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
@@ -146,12 +146,12 @@ function Register() {
         onChange={(e) => setFormId(e.target.value)}
         >
           <option value="" disabled hidden>
-            Select a form
+            Select year
           </option>
-          <option value="1">Form 1</option>
-          <option value="2">Form 2</option>
-          <option value="3">Form 3</option>
-          <option value="4">Form 4</option>
+          <option value="1">freshman</option>
+          <option value="2">sophomore</option>
+          <option value="3">junior</option>
+          <option value="4">senior</option>
         </select>
         <div className="mt-2 flex items-center">
           <input className="mr-1" type="checkbox" />
