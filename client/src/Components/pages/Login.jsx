@@ -47,6 +47,7 @@ const Login = ({ isLoggedIn, onSuccessfulLogin, setStudentDetails }) => {
         return response.json();
       })
       .then((data) => {
+        console.log('API response:', data)
         localStorage.setItem("access_token", data.access_token);
         localStorage.setItem('user_details', JSON.stringify(data));
 
@@ -57,13 +58,10 @@ const Login = ({ isLoggedIn, onSuccessfulLogin, setStudentDetails }) => {
         }));
 
         const subjects = data.subjects.map((subject) => ({
-             subjectName: subject.name
+          subjectName: subject.name,
+          marks: data.marks.filter((mark) => mark.subject_id === subject.id),
         }));
-
-        const marks = data.marks.map((mark) => ({
-             studentMarks: mark.score
-        }));
-
+      
 
         console.log("Student details:", {
           first_name: data.first_name,
@@ -73,7 +71,8 @@ const Login = ({ isLoggedIn, onSuccessfulLogin, setStudentDetails }) => {
           form: data.form.year,
           image: data.image,
           vouchers: vouchers,
-          subjects: subjects
+          subjects: subjects,
+          
         });
 
         onSuccessfulLogin({
@@ -85,7 +84,7 @@ const Login = ({ isLoggedIn, onSuccessfulLogin, setStudentDetails }) => {
           image: data.image,
           vouchers: vouchers,
           subjects: subjects,
-          marks: marks
+        
         });
         
         setStudentDetails({
@@ -96,7 +95,8 @@ const Login = ({ isLoggedIn, onSuccessfulLogin, setStudentDetails }) => {
           form: data.form.year,
           image: data.image,
           vouchers: vouchers,
-          subjects: subjects
+     
+          
         });
       })
       .catch((error) => {
