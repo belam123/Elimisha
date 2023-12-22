@@ -1,4 +1,3 @@
-# app/controllers/admins/subjects_controller.rb
 class Admins::SubjectsController < Admins::BaseController
     before_action :set_subject, only: [:show, :update, :destroy]
   
