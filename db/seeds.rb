@@ -51,21 +51,7 @@ fee1 =  Fee.create(amount: 1500, due_date: '04-04-2023', payment_status: "Not cl
 fee2 =  Fee.create(amount: 0, due_date: 'NA', payment_status: "Cleared", student_id: student3.id)
 fee3 = Fee.create(amount: 0, due_date: 'NA', payment_status: 'Cleared', student_id: student2.id)
 
-#courses
-course1 = Course.create(course_name: "Math",course_des: "121", teacher_id: teacher3.id)
-course2 = Course.create(course_name: "Geo",course_des: "212", teacher_id: teacher2.id)
-course3 = Course.create(course_name: "Hist",course_des: "211", teacher_id: teacher4.id)
-course4 = Course.create(course_name: "Kisw",course_des: "200", teacher_id: teacher5.id)
-course5 = Course.create(course_name: "Math",course_des: "121", teacher_id: teacher6.id)
-course6 = Course.create(course_name: "CRE",course_des: "210", teacher_id: teacher1.id)
 
-#grades
-grade1 = Grade.create(score: 90, comments: "Excellent", student_id: student1.id, course_id: course6.id)
-grade2 = Grade.create(score: 80, comments:"Good" , student_id: student1.id, course_id: course5.id)
-grade3 = Grade.create(score: 50, comments: "Average", student_id: student2.id, course_id: course4.id)
-grade4 = Grade.create(score: 88, comments: "Excellent", student_id: student2.id, course_id: course3.id)
-grade5 = Grade.create(score: 40, comments: "Below average", student_id: student3.id, course_id: course2.id)
-grade6 = Grade.create(score: 70, comments: "Above average", student_id: student3.id, course_id: course1.id)
 
 #subject
 

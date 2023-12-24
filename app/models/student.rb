@@ -5,10 +5,8 @@ has_one_attached :image
   belongs_to :form, class_name: 'Form'
   has_many :fees
   has_many :vouchers
-  has_many :grades
   has_many :marks
   has_many :subjects, through: :marks
-  has_many :courses, through: :grades
 validates :email, presence: true, format: { with: /\A\S+@careercampus\.ac.ke\z/i }
 validates :first_name, :second_name,:last_name, presence: true
 

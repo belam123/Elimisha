@@ -1,7 +1,6 @@
 class SessionsController < ApplicationController
   def create
     student = Student.find_by(email: params[:email])
-
     if student && student.authenticate(params[:password])
       session[:student_id] = student.id
       render json: student, status: :ok, serializer: StudentSerializer
