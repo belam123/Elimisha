@@ -1,9 +1,7 @@
 Rails.application.routes.draw do
   
   namespace :admins do
-    resources :grades, only: [:index, :show, :create, :update, :destroy]
     resources :forms, only: [:index, :show, :create, :update, :destroy]
-    resources :courses, only: [:index, :show, :create, :update, :destroy]
     resources :vouchers, only: [:index, :show, :create, :update, :destroy]
     resources :fees, only: [:index, :show, :create, :update, :destroy]
     resources :teachers, only: [:index, :show, :create, :update, :destroy]
