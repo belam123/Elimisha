@@ -57,11 +57,13 @@ const Login = ({ isLoggedIn, onSuccessfulLogin, setStudentDetails }) => {
           expiryDate: voucher.expiry_date,
         }));
 
-        const subjects = data.subjects.map((subject) => ({
+        const subjects = data.subjects?.map((subject) => ({
           subjectName: subject.name,
-          marks: data.marks.filter((mark) => mark.subject_id === subject.id),
-        }));
-      
+          marks: subject.marks?.map((mark) => ({
+            markId: mark.id,
+            score: mark.score,
+          })) || [], 
+        })) || [];
 
         console.log("Student details:", {
           first_name: data.first_name,
@@ -72,6 +74,8 @@ const Login = ({ isLoggedIn, onSuccessfulLogin, setStudentDetails }) => {
           image: data.image,
           vouchers: vouchers,
           subjects: subjects,
+          marks: data.marks
+      
           
         });
 
@@ -84,6 +88,7 @@ const Login = ({ isLoggedIn, onSuccessfulLogin, setStudentDetails }) => {
           image: data.image,
           vouchers: vouchers,
           subjects: subjects,
+          
         
         });
         
@@ -95,6 +100,8 @@ const Login = ({ isLoggedIn, onSuccessfulLogin, setStudentDetails }) => {
           form: data.form.year,
           image: data.image,
           vouchers: vouchers,
+          subjects: subjects,
+   
      
           
         });

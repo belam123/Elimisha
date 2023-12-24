@@ -2,7 +2,7 @@ class StudentsController < ApplicationController
   def create
     student = Student.create(student_params)
     if student.valid?
-      render json: student_with_image_url(student), status: :created
+      render json: student_with_image_url(student), serializer: StudentSerializer, status: :created
     else
       render json: { errors: student.errors.full_messages }, status: :unprocessable_entity
     end

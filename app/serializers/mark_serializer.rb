@@ -1,3 +1,3 @@
 class MarkSerializer < ActiveModel::Serializer
-  attributes :id, :score
+  attributes :id, :score,:student_id,:subject_id
 end
