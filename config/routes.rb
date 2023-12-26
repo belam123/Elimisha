@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   end
 
  
-  resources :students, only: [:create, :show]
+  resources :students, only: [:create, :show, :update]
   post '/register', to: 'students#create'
   post 'login', to: 'sessions#create'
   delete 'logout', to: 'sessions#destroy'
