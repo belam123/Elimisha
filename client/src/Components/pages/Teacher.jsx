@@ -12,7 +12,7 @@ function Teacher({ studentDetails }) {
           </h3>
           <p className="text-gray-600 mb-2">
             <HiOutlineMail className="inline mr-1 text-blue-500" />
-            <a href={`mailto:${teacher.email}`} className="underline text-blue-500 hover:text-blue-600">{teacher.email}</a>
+            <a href={`mailto:${teacher.email}`} className="underline text-blue-500 hover:text-blue-700">{teacher.email}</a>
           </p>
           <p className="text-gray-600 mb-2">
             <HiOutlineAcademicCap className="inline mr-1 text-indigo-500" />

@@ -7,6 +7,19 @@ class StudentsController < ApplicationController
       render json: { errors: student.errors.full_messages }, status: :unprocessable_entity
     end
   end
+  def update
+    student = Student.find_by(access_token: params[:access_token])
+
+    if student
+      if student.update(student_params.except(:email))
+        render json: student_with_image_url(student), status: :ok
+      else
+        render json: { errors: student.errors.full_messages }, status: :unprocessable_entity
+      end
+    else
+      render json: { errors: 'Student not found' }, status: :not_found
+    end
+  end
 
   private
 

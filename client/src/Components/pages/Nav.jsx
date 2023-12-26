@@ -49,7 +49,7 @@ function Nav({studentDetails}) {
                     className="object-cover btn- h-9 w-9 rounded-full mr-2 bg-gray-300"
                     alt=""
                   /> 
-                    <p className="font-semibold text-sm">{studentDetails.first_name} {studentDetails.last_name}</p>
+                    <p className="font-semibold text-sm text-gray-500">{studentDetails.first_name} {studentDetails.last_name}</p>
                   </div>
                 </div>
               </div>

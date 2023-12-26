@@ -6,7 +6,7 @@ function Student({ studentDetails }) {
 
   return (
     <div className="max-w-4xl mx-auto">
-      <div className="bg-white shadow-lg rounded-lg overflow-hidden p-4">
+      <div className=" p-4">
         {studentDetails ? (
           <div className="text-center">
             {studentDetails.image ? (
