@@ -18,7 +18,7 @@ function Sidebar({ onLogout }) {
               <LinkButton icon={<AiOutlineTeam />} text="Teachers" to="/dashboard/teachers" />
               <LinkButton icon={<AiOutlineCalendar />} text="Calendar" to="/dashboard/calendar" />
               <LinkButton icon={<AiOutlineSetting />} text="Settings" to="/dashboard/settings" />
-              <LinkButton icon={<BiHeadphone />} text="Support" to="/dashboard/settings" />
+              <LinkButton icon={<BiHeadphone />} text="Support" to="/dashboard/support" />
             </div>
             <Logout onLogout={onLogout} />
           </div>

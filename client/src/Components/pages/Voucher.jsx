@@ -2,9 +2,9 @@ import React from 'react';
 
 function Voucher({ studentDetails }) {
   return (
-    <div className="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div className=" min-h-screen flex items-center justify-center">
       <div className="bg-white p-8 rounded-lg shadow-md">
-        <h1 className="text-3xl font-semibold mb-6">Meal Coupon</h1>
+        <h1 className="text-3xl font-semibold mb-6 text-gray-600">Meal Coupon</h1>
         {studentDetails.vouchers.map((voucher) => (
           <div key={voucher.id} className="mb-6 border-b pb-4">
            <div className="bg-gray-100 p-4 rounded">

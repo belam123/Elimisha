@@ -8,8 +8,11 @@ import Grades from '../pages/Grades';
 import Fee from '../pages/Fee';
 import Teacher from '../pages/Teacher';
 import Calendar from '../pages/Calendar';
+import Support from '../pages/Support';
+import Settings from '../pages/Settings';
+import DashboardContent from './DashboardContent';
 
-const Layout = ({ onLogout, studentDetails, setStudentDetails }) => {
+const Layout = ({ onLogout, studentDetails, setStudentDetails,handleToggle,buttonClass,buttonStyles,darkMode }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const events = {
@@ -47,6 +50,17 @@ const Layout = ({ onLogout, studentDetails, setStudentDetails }) => {
       path: 'calendar',
       element: <Calendar selectedDate={selectedDate} events={events} />,
     },
+    {
+     path: 'settings',
+     element:<Settings handleToggle={handleToggle} buttonClass={buttonClass} buttonStyles={buttonStyles}  darkMode={darkMode} />
+    },
+    {
+      path: 'support',
+      element: <Support />
+    },
+    {path: '/',
+     element: <DashboardContent />
+  }
   ];
 
   return (

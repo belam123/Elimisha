@@ -12,7 +12,7 @@ const Login = ({ isLoggedIn, onSuccessfulLogin, setStudentDetails }) => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState([]);
-
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const accessToken = localStorage.getItem('access_token');
@@ -29,6 +29,7 @@ const Login = ({ isLoggedIn, onSuccessfulLogin, setStudentDetails }) => {
   };
 
   const handleLogin = () => {
+    setLoading(true);
     const userData = { email, password};
     fetch(`${apiUrl}/login`, {
       method: "POST",
@@ -48,6 +49,7 @@ const Login = ({ isLoggedIn, onSuccessfulLogin, setStudentDetails }) => {
       })
       .then((data) => {
         console.log('API response:', data)
+        setLoading(false);
         localStorage.setItem("access_token", data.access_token);
         localStorage.setItem('user_details', JSON.stringify(data));
 
@@ -119,6 +121,7 @@ const Login = ({ isLoggedIn, onSuccessfulLogin, setStudentDetails }) => {
       })
       .catch((error) => {
         console.error("Login failed:", error);
+        setLoading(false);
       });
   };
 
@@ -208,13 +211,19 @@ const Login = ({ isLoggedIn, onSuccessfulLogin, setStudentDetails }) => {
           </a>
         </div>
         <div className="text-center md:text-left">
-          <button
-            className="mt-4 bg-blue-600 hover:bg-blue-700 px-4 py-2 text-white uppercase rounded text-xs tracking-wider"
-            type="submit"
-            onClick={handleLogin}
-          >
-            Login
-          </button>
+          {loading ? (
+            <div className="spinner-border text-blue-600" role="status">
+              <span className="sr-only">Loading...</span>
+            </div>
+          ) : (
+            <button
+              className="mt-4 bg-blue-600 hover:bg-blue-700 px-4 py-2 text-white uppercase rounded text-xs tracking-wider"
+              type="submit"
+              onClick={handleLogin}
+            >
+              {loading ? 'Logging in...': 'login'}
+            </button>
+          )}
         </div>
         <div className="mt-4 font-semibold text-sm text-slate-500 text-center md:text-left">
           Already an admin?{" "}
