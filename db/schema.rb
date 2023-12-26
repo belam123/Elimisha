@@ -86,8 +86,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_22_124346) do
 
   create_table "subjects", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
+    t.bigint "teacher_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["teacher_id"], name: "index_subjects_on_teacher_id"
   end
 
   create_table "teachers", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -113,5 +115,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_22_124346) do
   add_foreign_key "fees", "students"
   add_foreign_key "marks", "students"
   add_foreign_key "marks", "subjects"
+  add_foreign_key "subjects", "teachers"
   add_foreign_key "vouchers", "students"
 end

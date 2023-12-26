@@ -55,16 +55,16 @@ fee3 = Fee.create(amount: 0, due_date: 'NA', payment_status: 'Cleared', student_
 
 #subject
 
-subject1 = Subject.create(name:'math')
-subject2 = Subject.create(name: 'eng')
-subject3 = Subject.create(name: 'sus')
-subject4 = Subject.create(name:'fil')
-subject5 = Subject.create(name: 'accounting')
-subject6 = Subject.create(name:'ist')
-subject7 = Subject.create(name:'music')
-subject8 = Subject.create(name:'french')
-subject9 = Subject.create(name:'arts')
-subject10 = Subject.create(name:'drama')
+subject1 = Subject.create(name:'math', teacher_id: teacher1.id)
+subject2 = Subject.create(name: 'eng', teacher_id: teacher2.id)
+subject3 = Subject.create(name: 'sus',teacher_id: teacher3.id)
+subject4 = Subject.create(name:'fil', teacher_id: teacher4.id)
+subject5 = Subject.create(name: 'accounting',teacher_id: teacher5.id)
+subject6 = Subject.create(name:'ist', teacher_id: teacher6.id)
+subject7 = Subject.create(name:'music',teacher_id: teacher1.id)
+subject8 = Subject.create(name:'french',teacher_id: teacher2.id)
+subject9 = Subject.create(name:'arts', teacher_id: teacher3.id)
+subject10 = Subject.create(name:'drama',teacher_id: teacher4.id)
 
 #add more seeding
 

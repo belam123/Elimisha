@@ -5,6 +5,8 @@ class StudentSerializer < ActiveModel::Serializer
   belongs_to :form, serializer: FormSerializer
   has_many :vouchers, serializer: VoucherSerializer
   has_many :subjects, each_serializer: SubjectSerializer
+  has_many :fees, serializer: FeeSerializer
+  has_many :teachers, serializer: TeacherSerializer
 
 
   def image
