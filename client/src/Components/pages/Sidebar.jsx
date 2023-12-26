@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { AiOutlineBook, AiOutlineUser, AiOutlineDollar, AiOutlineAmazon, AiOutlineLogout, AiOutlineTeam, AiOutlineSetting } from 'react-icons/ai';
+import { AiOutlineBook, AiOutlineUser, AiOutlineDollar, AiOutlineAmazon, AiOutlineLogout, AiOutlineTeam, AiOutlineSetting, AiOutlineCalendar, AiOutlineTable } from 'react-icons/ai';
 import Logout from './Logout';
+import { BiHeadphone } from 'react-icons/bi';
 
 function Sidebar({ onLogout }) {
   return (
@@ -11,11 +12,13 @@ function Sidebar({ onLogout }) {
           <div className="flex flex-col justify-between h-full px-4">
             <div className="space-y-4">
               <LinkButton icon={<AiOutlineUser />} text="Student Information" to="/dashboard/student-info" />
-              <LinkButton icon={<AiOutlineAmazon />} text="Voucher" to="/dashboard/voucher" />
+              <LinkButton icon={<AiOutlineTable />} text="Voucher" to="/dashboard/voucher" />
               <LinkButton icon={<AiOutlineBook />} text="Grades" to="/dashboard/grades" />
               <LinkButton icon={<AiOutlineDollar />} text="Fees" to="/dashboard/fees" />
               <LinkButton icon={<AiOutlineTeam />} text="Teachers" to="/dashboard/teachers" />
+              <LinkButton icon={<AiOutlineCalendar />} text="Calendar" to="/dashboard/calendar" />
               <LinkButton icon={<AiOutlineSetting />} text="Settings" to="/dashboard/settings" />
+              <LinkButton icon={<BiHeadphone />} text="Support" to="/dashboard/settings" />
             </div>
             <Logout onLogout={onLogout} />
           </div>
