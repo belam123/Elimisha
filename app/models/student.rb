@@ -7,8 +7,10 @@ has_one_attached :image
   has_many :vouchers
   has_many :marks
   has_many :subjects, through: :marks
+  has_many :teachers,through: :subjects
 validates :email, presence: true, format: { with: /\A\S+@careercampus\.ac.ke\z/i }
 validates :first_name, :second_name,:last_name, presence: true
+validates :email, uniqueness: true
 
 private
 

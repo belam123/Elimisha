@@ -27,7 +27,7 @@ class Admins::SubjectsController < Admins::BaseController
     private
   
     def subject_params
-      params.require(:subject).permit(:name)
+      params.require(:subject).permit(:name,:teacher_id)
     end
   
     def set_subject

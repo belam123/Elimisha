@@ -27,7 +27,7 @@ class Admins::FeesController < Admins::BaseController
   private
 
   def fee_params
-    params.require(:fee).permit(:amount, :due_date, :payment_status)
+    params.require(:fee).permit(:amount, :due_date, :payment_status,:student_id)
   end
 
   def set_fee

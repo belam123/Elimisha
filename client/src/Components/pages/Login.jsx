@@ -57,13 +57,22 @@ const Login = ({ isLoggedIn, onSuccessfulLogin, setStudentDetails }) => {
           expiryDate: voucher.expiry_date,
         }));
 
-        const subjects = data.subjects?.map((subject) => ({
-          subjectName: subject.name,
-          marks: subject.marks?.map((mark) => ({
-            markId: mark.id,
-            score: mark.score,
-          })) || [], 
-        })) || [];
+       const subjects = data.subjects.map((subject) =>({
+        subjectName: subject.name,
+       }))
+
+        const fees = data.fees.map((fee) =>({
+          amount: fee.amount,
+          dueDate: fee.due_date,
+          paymentStatus: fee.payment_status
+        }))
+
+        const teachers = data.teachers.map((teacher) =>({
+          firstName: teacher.first_name,
+          lastName: teacher.last_name,
+          email: teacher.email,
+          department: teacher.department
+        }))
 
         console.log("Student details:", {
           first_name: data.first_name,
@@ -74,7 +83,9 @@ const Login = ({ isLoggedIn, onSuccessfulLogin, setStudentDetails }) => {
           image: data.image,
           vouchers: vouchers,
           subjects: subjects,
-          marks: data.marks
+          marks: data.marks,
+          fees: fees,
+          teachers: teachers
       
           
         });
@@ -88,7 +99,8 @@ const Login = ({ isLoggedIn, onSuccessfulLogin, setStudentDetails }) => {
           image: data.image,
           vouchers: vouchers,
           subjects: subjects,
-          
+          fees: fees,
+          teachers: teachers
         
         });
         
@@ -101,9 +113,8 @@ const Login = ({ isLoggedIn, onSuccessfulLogin, setStudentDetails }) => {
           image: data.image,
           vouchers: vouchers,
           subjects: subjects,
-   
-     
-          
+          fees: fees,
+          teachers: teachers
         });
       })
       .catch((error) => {
