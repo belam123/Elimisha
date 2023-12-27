@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { LanguageProvider } from '../inc/LanguageContext';
-import Layout from '../inc/Layout';
+
+import Layout from '../layout/Layout';
 
 
 function Dashboard({ isLoggedIn, onLogout, studentDetails, setStudentDetails, handleToggle, darkMode }) {
@@ -16,7 +16,7 @@ function Dashboard({ isLoggedIn, onLogout, studentDetails, setStudentDetails, ha
   }
 
   return (
-    <LanguageProvider>
+
       <div className={darkMode ? 'bg-primary text-secondary' : 'bg-secondary text-primary'}>
         <Layout
           isLoggedIn={isLoggedIn}
@@ -31,7 +31,7 @@ function Dashboard({ isLoggedIn, onLogout, studentDetails, setStudentDetails, ha
         />
         
       </div>
-    </LanguageProvider>
+ 
   );
 }
 

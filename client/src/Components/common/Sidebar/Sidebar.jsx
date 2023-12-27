@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { AiOutlineBook, AiOutlineUser, AiOutlineDollar, AiOutlineAmazon, AiOutlineLogout, AiOutlineTeam, AiOutlineSetting, AiOutlineCalendar, AiOutlineTable } from 'react-icons/ai';
-import Logout from './Logout';
+import Logout from '../../auth/Logout/Logout';
 import { BiHeadphone } from 'react-icons/bi';
 
 function Sidebar({ onLogout }) {
@@ -15,7 +15,7 @@ function Sidebar({ onLogout }) {
               <LinkButton icon={<AiOutlineTable />} text="Voucher" to="/dashboard/voucher" />
               <LinkButton icon={<AiOutlineBook />} text="Grades" to="/dashboard/grades" />
               <LinkButton icon={<AiOutlineDollar />} text="Fees" to="/dashboard/fees" />
-              <LinkButton icon={<AiOutlineTeam />} text="Teachers" to="/dashboard/teachers" />
+              {/* <LinkButton icon={<AiOutlineTeam />} text="Teachers" to="/dashboard/teachers" /> */}
               <LinkButton icon={<AiOutlineCalendar />} text="Calendar" to="/dashboard/calendar" />
               <LinkButton icon={<AiOutlineSetting />} text="Settings" to="/dashboard/settings" />
               <LinkButton icon={<BiHeadphone />} text="Support" to="/dashboard/support" />

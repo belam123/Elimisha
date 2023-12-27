@@ -1,7 +1,5 @@
 import React, { useState,useEffect } from "react";
-import { AiOutlineTwitter } from "react-icons/ai";
-import { BiLogoFacebook } from "react-icons/bi";
-import { BiLogoInstagram } from "react-icons/bi";
+
 const apiUrl = import.meta.env.VITE_API_URL;
 import {  Navigate } from 'react-router-dom';
 
@@ -30,7 +28,7 @@ const Login = ({ isLoggedIn, onSuccessfulLogin, setStudentDetails }) => {
 
   const handleLogin = () => {
     setLoading(true);
-    const userData = { email, password};
+    const userData = { email, password };
     fetch(`${apiUrl}/login`, {
       method: "POST",
       headers: {
@@ -48,76 +46,70 @@ const Login = ({ isLoggedIn, onSuccessfulLogin, setStudentDetails }) => {
         return response.json();
       })
       .then((data) => {
-        console.log('API response:', data)
         setLoading(false);
         localStorage.setItem("access_token", data.access_token);
         localStorage.setItem('user_details', JSON.stringify(data));
 
+        const mapData = (items, mapper) => items.map(mapper);
 
-        const vouchers = data.vouchers.map((voucher) => ({
+        const vouchers = mapData(data.vouchers, (voucher) => ({
           voucherAmount: voucher.voucher_amount,
           expiryDate: voucher.expiry_date,
         }));
 
-       const subjects = data.subjects.map((subject) =>({
-        subjectName: subject.name,
-       }))
+        const subjects = mapData(data.subjects, (subject) => ({
+          subjectName: subject.name,
+        }));
 
-        const fees = data.fees.map((fee) =>({
+        const fees = mapData(data.fees, (fee) => ({
           amount: fee.amount,
           dueDate: fee.due_date,
-          paymentStatus: fee.payment_status
-        }))
+          paymentStatus: fee.payment_status,
+        }));
 
-        const teachers = data.teachers.map((teacher) =>({
+        const teachers = mapData(data.teachers, (teacher) => ({
           firstName: teacher.first_name,
           lastName: teacher.last_name,
           email: teacher.email,
-          department: teacher.department
-        }))
+          department: teacher.department,
+        }));
 
-        console.log("Student details:", {
-          first_name: data.first_name,
-          second_name: data.second_name,
-          last_name: data.last_name,
-          email: data.email,
-          form: data.form.year,
-          image: data.image,
-          vouchers: vouchers,
-          subjects: subjects,
-          marks: data.marks,
-          fees: fees,
-          teachers: teachers
-      
-          
-        });
+        const events = mapData(data.events, (event) => ({
+          dueDate: event.due_date,
+          message: event.message,
+        }));
 
-        onSuccessfulLogin({
+        const supports = mapData(data.supports, (support) => ({
+          email: support.email,
+          topic: support.topic,
+          subject: support.subject,
+          message: support.message,
+        }));
+
+        const notifications = mapData(data.notifications, (notification) => ({
+          message: notification.message,
+        }));
+
+        const studentDetails = {
           first_name: data.first_name,
           second_name: data.second_name,
           last_name: data.last_name,
           email: data.email,
           form: data.form.year,
           image: data.image,
-          vouchers: vouchers,
-          subjects: subjects,
-          fees: fees,
-          teachers: teachers
-        
-        });
-        
-        setStudentDetails({
-          first_name: data.first_name,
-          second_name: data.second_name,
-          last_name: data.last_name,
-          email: data.email,
-          form: data.form.year,
-          image: data.image,
-          vouchers: vouchers,
-          subjects: subjects,
-          fees: fees,
-          teachers: teachers
-        });
+          vouchers,
+          subjects,
+          fees,
+          teachers,
+          events,
+          supports,
+          notifications,
+        };
+
+        console.log("Student details:", studentDetails);
+
+        onSuccessfulLogin(studentDetails);
+        setStudentDetails(studentDetails);
       })
       .catch((error) => {
         console.error("Login failed:", error);
@@ -125,58 +117,33 @@ const Login = ({ isLoggedIn, onSuccessfulLogin, setStudentDetails }) => {
       });
   };
 
-
-
   if (isLoggedIn) {
     return <Navigate to="/dashboard" />;
   }
+
 
    
   
   return (
     <section className="h-screen flex flex-col md:flex-row justify-center space-y-10 md:space-y-0 md:space-x-16 items-center my-2 mx-5 md:mx-0 md:my-0">
-      <div className="md:w-1/3 max-w-sm">
-        <img
-          src="https://static.vecteezy.com/system/resources/previews/005/879/539/non_2x/cloud-computing-modern-flat-concept-for-web-banner-design-man-enters-password-and-login-to-access-cloud-storage-for-uploading-and-processing-files-illustration-with-isolated-people-scene-free-vector.jpg"
-          alt="ERROR 404"
-        />
+    <div className="md:w-1/3 max-w-sm">
+      <img
+        src="https://static.vecteezy.com/system/resources/previews/005/879/539/non_2x/cloud-computing-modern-flat-concept-for-web-banner-design-man-enters-password-and-login-to-access-cloud-storage-for-uploading-and-processing-files-illustration-with-isolated-people-scene-free-vector.jpg"
+        alt="ERROR 404"
+      />
+    </div>
+    <div className="md:w-1/3 max-w-sm">
+      <div className="text-center md:text-left">
+        <p className="text-lg font-bold mb-2 ">Welcome to Career Campus</p>
+        <p className="text-sm text-gray-600">
+          Please sign in to your account.
+        </p>
       </div>
-      <div className="md:w-1/3 max-w-sm">
-        <div className="text-center md:text-left">
-          <label className="mr-1">Sign in with</label>
-          <button
-            type="button"
-            className="mx-1 h-9 w-9  rounded-full bg-blue-600 hover:bg-blue-700 text-white shadow-[0_4px_9px_-4px_#3b71ca]"
-          >
-            <BiLogoFacebook
-              size={20}
-              className="flex justify-center items-center w-full"
-            />
-          </button>
-          <button
-            type="button"
-            className="inlne-block mx-1 h-9 w-9 rounded-full bg-blue-600 hover:bg-blue-700 uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca]"
-          >
-            <BiLogoInstagram
-              size={20}
-              className="flex justify-center items-center w-full"
-            />
-          </button>
-          <button
-            type="button"
-            className="inlne-block mx-1 h-9 w-9 rounded-full bg-blue-600 hover:bg-blue-700 uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca]"
-          >
-            <AiOutlineTwitter
-              size={20}
-              className="flex justify-center items-center w-full"
-            />
-          </button>
-        </div>
-        <div className="my-5 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
-          <p className="mx-4 mb-0 text-center font-semibold text-slate-500">
-            Or
-          </p>
-        </div>
+      <div className="my-5 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
+        <p className="mx-4 mb-0 text-center font-semibold text-slate-500">
+          use school email
+        </p>
+      </div>
         <input
           className="text-sm w-full px-4 py-2 border border-solid border-gray-300 rounded"
           type="text"
