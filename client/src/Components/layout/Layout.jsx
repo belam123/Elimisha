@@ -1,25 +1,21 @@
 import React, { useState } from 'react';
-import Nav from '../pages/Nav';
-import Sidebar from '../pages/Sidebar';
+import Nav from '../common/Nav/Nav';
+import Sidebar from '../common/Sidebar/Sidebar';
 import { Outlet, Routes, Route } from 'react-router-dom';
-import Student from '../pages/Student';
-import Voucher from '../pages/Voucher';
-import Grades from '../pages/Grades';
-import Fee from '../pages/Fee';
-import Teacher from '../pages/Teacher';
-import Calendar from '../pages/Calendar';
-import Support from '../pages/Support';
-import Settings from '../pages/Settings';
-import DashboardContent from './DashboardContent';
+import Student from '../student/Student'
+import Grades from '../grades/Grades';
+import Fee from '../fees/Fee';
+import Teacher from '../teacher/Teacher';
+import Calendar from '../calendar/Calendar';
+import Support from '../support/Support';
+import Settings from '../settings/Settings';
+import Voucher from '../voucher/Voucher';
+import DashboardContent from '../dashboard/DashboardContent';
+
 
 const Layout = ({ onLogout, studentDetails, setStudentDetails,handleToggle,buttonClass,buttonStyles,darkMode }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
 
-  const events = {
-    '2023-12-26': [{ id: 1, title: 'Assignment Due' }],
-    '2023-01-1': [{ id: 2, title: 'Exam - Math' }, { id: 3, title: 'Club Meeting' }],
-    '2023-12-31': [{ id: 4, title: 'Project Deadline' }],
-  };
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -48,7 +44,7 @@ const Layout = ({ onLogout, studentDetails, setStudentDetails,handleToggle,butto
     },
     {
       path: 'calendar',
-      element: <Calendar selectedDate={selectedDate} events={events} />,
+      element: <Calendar selectedDate={selectedDate} studentDetails={studentDetails} />,
     },
     {
      path: 'settings',
@@ -65,6 +61,7 @@ const Layout = ({ onLogout, studentDetails, setStudentDetails,handleToggle,butto
 
   return (
     <div>
+
       <Nav studentDetails={studentDetails} />
       <div className="flex">
         <Sidebar onLogout={onLogout} />
@@ -84,6 +81,7 @@ const Layout = ({ onLogout, studentDetails, setStudentDetails,handleToggle,butto
           <Outlet />
         </div>
       </div>
+
     </div>
   );
 };

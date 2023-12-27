@@ -1,9 +1,9 @@
 // App.jsx
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Login from './Components/pages/Login';
-import Dashboard from './Components/pages/Dashboard';
-import { LanguageProvider } from './Components/inc/LanguageContext';
+import Login from './Components/auth/Login/Login';
+import Dashboard from './Components/dashboard/Dashboard';
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
    const [studentDetails, setStudentDetails] = useState(null);
@@ -26,7 +26,7 @@ function App() {
 
   return (
     <Router>
-      <LanguageProvider>
+
       <Routes>
         <Route
           path='/'
@@ -37,7 +37,7 @@ function App() {
           element={<Dashboard isLoggedIn={isLoggedIn} onLogout={onLogout}  studentDetails={studentDetails} handleToggle={handleToggle}  darkMode={darkMode}/>}
         />
       </Routes>
-      </LanguageProvider>
+     
     </Router>
   );
 }

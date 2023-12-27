@@ -1,23 +1,12 @@
 import React, { useState } from 'react';
-import { useLanguage } from '../inc/LanguageContext';
+
 
 function Settings({ handleToggle, buttonClass, buttonStyles, darkMode }) {
-  const { selectedLanguage, handleLanguageChange } = useLanguage();
   const [emailToggle, setEmailToggle] = useState(true);
   const [notificationToggle, setNotificationToggle] = useState(true);
   const [examsToggle, setExamsToggle] = useState(true);
   const [assignmentsToggle, setAssignmentsToggle] = useState(true);
   const [messagesToggle, setMessagesToggle] = useState(true);
-  const languages = [
-    { code: 'en', name: 'English' },
-    { code: 'zh', name: 'Chinese' },
-    { code: 'fr', name: 'French' },
-    { code: 'de', name: 'German' },
-    { code: 'sw', name: 'Swahili' },
-    { code: 'es', name: 'Spanish' },
-    { code: 'ja', name: 'Japanese' },
-    { code: 'it', name: 'Italian' },
-  ];
 
   return (
     <div>
@@ -112,27 +101,7 @@ function Settings({ handleToggle, buttonClass, buttonStyles, darkMode }) {
         </div>
       </div>
 
-      <h1 className='font-semibold text-xl text-center underline mt-4'>Language preferences</h1>
-      <div className="mt-6 space-y-4">
-        <fieldset>
-          <legend className="sr-only">Language Preferences</legend>
-          <div className="flex flex-wrap justify-center">
-            {languages.map((lang) => (
-              <div key={lang.code} className="flex flex-col items-center mx-4 my-2">
-                <span className="text-sm text-gray-600">{lang.name}</span>
-                <label className="switch">
-                  <input
-                    type="checkbox"
-                    checked={selectedLanguage === lang.code}
-                    onChange={() => handleLanguageChange(lang.code)}
-                  />
-                  <span className="slider round"></span>
-                </label>
-              </div>
-            ))}
-          </div>
-        </fieldset>
-      </div>
+      
     </div>
   );
 }
