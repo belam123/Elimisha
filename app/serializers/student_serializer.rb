@@ -7,7 +7,9 @@ class StudentSerializer < ActiveModel::Serializer
   has_many :subjects, each_serializer: SubjectSerializer
   has_many :fees, serializer: FeeSerializer
   has_many :teachers, serializer: TeacherSerializer
-
+  has_many :events,serializer: EventSerializer
+  has_many :supports, serializer: SupportSerializer
+  has_many :notifications,serializer: NotificationSerializer
 
   def image
     rails_blob_path(object.image, only_path: true) if object.image.attached?

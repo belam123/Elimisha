@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_22_124346) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_27_145152) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -46,6 +46,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_22_124346) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "events", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "due_date"
+    t.string "message"
+    t.bigint "student_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["student_id"], name: "index_events_on_student_id"
+  end
+
   create_table "fees", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "amount"
     t.string "due_date"
@@ -72,6 +81,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_22_124346) do
     t.index ["subject_id"], name: "index_marks_on_subject_id"
   end
 
+  create_table "notifications", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "message"
+    t.bigint "student_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["student_id"], name: "index_notifications_on_student_id"
+  end
+
   create_table "students", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "first_name"
     t.string "second_name"
@@ -90,6 +107,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_22_124346) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["teacher_id"], name: "index_subjects_on_teacher_id"
+  end
+
+  create_table "supports", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "email"
+    t.string "topic"
+    t.string "subject"
+    t.text "message"
+    t.bigint "student_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["student_id"], name: "index_supports_on_student_id"
   end
 
   create_table "teachers", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -112,9 +140,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_22_124346) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "events", "students"
   add_foreign_key "fees", "students"
   add_foreign_key "marks", "students"
   add_foreign_key "marks", "subjects"
+  add_foreign_key "notifications", "students"
   add_foreign_key "subjects", "teachers"
+  add_foreign_key "supports", "students"
   add_foreign_key "vouchers", "students"
 end
