@@ -156,6 +156,36 @@ INSERT INTO `ar_internal_metadata` VALUES ('environment','development','2023-12-
 UNLOCK TABLES;
 
 --
+-- Table structure for table `events`
+--
+
+DROP TABLE IF EXISTS `events`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `events` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `due_date` varchar(255) DEFAULT NULL,
+  `message` varchar(255) DEFAULT NULL,
+  `student_id` bigint NOT NULL,
+  `created_at` datetime(6) NOT NULL,
+  `updated_at` datetime(6) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `index_events_on_student_id` (`student_id`),
+  CONSTRAINT `fk_rails_27a3331b5b` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `events`
+--
+
+LOCK TABLES `events` WRITE;
+/*!40000 ALTER TABLE `events` DISABLE KEYS */;
+INSERT INTO `events` VALUES (1,'2023-12-26','Maths Assignment due',1,'2023-12-27 14:19:15.194720','2023-12-27 14:19:15.194720'),(2,'2023-12-27','SUS Assignment due',1,'2023-12-27 14:19:26.292105','2023-12-27 14:19:26.292105'),(3,'2023-12-30','Project deadline',1,'2023-12-27 14:19:50.919493','2023-12-27 14:19:50.919493');
+/*!40000 ALTER TABLE `events` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `fees`
 --
 
@@ -244,6 +274,35 @@ INSERT INTO `marks` VALUES (1,98,1,1,'2023-12-26 09:11:44.552051','2023-12-26 09
 UNLOCK TABLES;
 
 --
+-- Table structure for table `notifications`
+--
+
+DROP TABLE IF EXISTS `notifications`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `notifications` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `message` varchar(255) DEFAULT NULL,
+  `student_id` bigint NOT NULL,
+  `created_at` datetime(6) NOT NULL,
+  `updated_at` datetime(6) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `index_notifications_on_student_id` (`student_id`),
+  CONSTRAINT `fk_rails_87d5b7488e` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `notifications`
+--
+
+LOCK TABLES `notifications` WRITE;
+/*!40000 ALTER TABLE `notifications` DISABLE KEYS */;
+INSERT INTO `notifications` VALUES (1,'Tommorrow are exams',1,'2023-12-27 15:00:02.683523','2023-12-27 15:00:02.683523'),(2,'go home',1,'2023-12-27 21:00:09.760911','2023-12-27 21:00:09.760911'),(3,'go home',1,'2023-12-27 21:00:20.560293','2023-12-27 21:00:20.560293'),(4,'go home',1,'2023-12-27 21:00:21.857128','2023-12-27 21:00:21.857128'),(5,'go home',1,'2023-12-27 21:00:22.966594','2023-12-27 21:00:22.966594'),(6,'go home',1,'2023-12-27 21:00:24.009637','2023-12-27 21:00:24.009637'),(7,'go home',1,'2023-12-27 21:00:24.907333','2023-12-27 21:00:24.907333'),(8,'go home',1,'2023-12-27 21:00:25.860411','2023-12-27 21:00:25.860411'),(9,'go home',1,'2023-12-27 21:00:28.505549','2023-12-27 21:00:28.505549'),(10,'go home',1,'2023-12-27 21:00:29.419702','2023-12-27 21:00:29.419702');
+/*!40000 ALTER TABLE `notifications` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `schema_migrations`
 --
 
@@ -262,7 +321,7 @@ CREATE TABLE `schema_migrations` (
 
 LOCK TABLES `schema_migrations` WRITE;
 /*!40000 ALTER TABLE `schema_migrations` DISABLE KEYS */;
-INSERT INTO `schema_migrations` VALUES ('20231215072134'),('20231215145440'),('20231215191325'),('20231215191648'),('20231215192101'),('20231216112355'),('20231220192057'),('20231221124653'),('20231222124256'),('20231222124346');
+INSERT INTO `schema_migrations` VALUES ('20231215072134'),('20231215145440'),('20231215191325'),('20231215191648'),('20231215192101'),('20231216112355'),('20231220192057'),('20231221124653'),('20231222124256'),('20231222124346'),('20231227140105'),('20231227142311'),('20231227145152');
 /*!40000 ALTER TABLE `schema_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -325,6 +384,38 @@ LOCK TABLES `subjects` WRITE;
 /*!40000 ALTER TABLE `subjects` DISABLE KEYS */;
 INSERT INTO `subjects` VALUES (1,'math',1,'2023-12-26 08:58:32.118525','2023-12-26 08:58:32.118525'),(2,'eng',2,'2023-12-26 08:58:32.155411','2023-12-26 08:58:32.155411'),(3,'sus',3,'2023-12-26 08:58:32.164275','2023-12-26 08:58:32.164275'),(4,'fil',4,'2023-12-26 08:58:32.172422','2023-12-26 08:58:32.172422'),(5,'accounting',5,'2023-12-26 08:58:32.208999','2023-12-26 08:58:32.208999'),(6,'ist',6,'2023-12-26 08:58:32.216999','2023-12-26 08:58:32.216999'),(7,'music',1,'2023-12-26 08:58:32.251856','2023-12-26 08:58:32.251856'),(8,'french',2,'2023-12-26 08:58:32.259993','2023-12-26 08:58:32.259993'),(9,'arts',3,'2023-12-26 08:58:32.267173','2023-12-26 08:58:32.267173'),(10,'drama',4,'2023-12-26 08:58:32.301860','2023-12-26 08:58:32.301860');
 /*!40000 ALTER TABLE `subjects` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `supports`
+--
+
+DROP TABLE IF EXISTS `supports`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `supports` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) DEFAULT NULL,
+  `topic` varchar(255) DEFAULT NULL,
+  `subject` varchar(255) DEFAULT NULL,
+  `message` text,
+  `student_id` bigint NOT NULL,
+  `created_at` datetime(6) NOT NULL,
+  `updated_at` datetime(6) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `index_supports_on_student_id` (`student_id`),
+  CONSTRAINT `fk_rails_5abec1fabe` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `supports`
+--
+
+LOCK TABLES `supports` WRITE;
+/*!40000 ALTER TABLE `supports` DISABLE KEYS */;
+INSERT INTO `supports` VALUES (1,'belammuia0@gmail.com','credential issues','Change login','When i login my credentials take a while to load',1,'2023-12-27 14:46:39.543297','2023-12-27 14:46:39.543297'),(2,'belammuia0@gmail.com','Technical issues','Can\'t see my grades','Can\'t see my grades',1,'2023-12-27 14:47:20.288816','2023-12-27 14:47:20.288816'),(3,'belam0@gmail.com','credential','Credential issues','credential. issues',1,'2023-12-27 19:49:53.743052','2023-12-27 19:49:53.743052'),(4,'belam0@gmail.com','credential','Credential issues','credential. issues',1,'2023-12-27 19:50:23.739564','2023-12-27 19:50:23.739564'),(5,'belam0@gmail.com','credential','Credential issues','credential. issues',1,'2023-12-27 19:51:22.791366','2023-12-27 19:51:22.791366'),(6,'belam0@gmail.com','credential','Credential issues','credential. issues',1,'2023-12-27 19:53:54.805816','2023-12-27 19:53:54.805816'),(7,'Belammuia0@gmail.com','credential','Credential issues','Credential issues',1,'2023-12-27 20:02:09.760953','2023-12-27 20:02:09.760953'),(8,'martin@gmail.com','grade','Not correct marks','I dont have the correct marks ',1,'2023-12-27 20:03:37.145332','2023-12-27 20:03:37.145332');
+/*!40000 ALTER TABLE `supports` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -394,4 +485,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-26 12:18:45
+-- Dump completed on 2023-12-28 18:15:16

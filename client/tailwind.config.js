@@ -7,7 +7,17 @@ export default {
     extend: {
       colors: {
         primary: 'var(--primary)',
-        secondary: 'var(--secondary)',
+        secondary: 'var(--secondary)'
+      },
+      textColor: {
+        'green-500': '#00cc00',
+        'yellow-500': '#ffcc00',
+        'brown-500': '#996633',
+        'purple-500': '#800080',
+        'orange-500': '#ff9900',
+        'blue-500': '#0000cc',
+        'red-500': '#ff0000',
+        'lightgreen': "#90EE90"
       },
     },
   },
