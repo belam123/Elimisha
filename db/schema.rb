@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_27_145152) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_28_151650) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -46,6 +46,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_27_145152) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "backups", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "backup_file"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "events", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "due_date"
     t.string "message"
@@ -72,7 +78,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_27_145152) do
   end
 
   create_table "marks", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.integer "score"
+    t.integer "exam_score", default: 0
+    t.integer "assignment_score", default: 0
+    t.integer "quiz_score", default: 0
     t.bigint "student_id", null: false
     t.bigint "subject_id", null: false
     t.datetime "created_at", null: false

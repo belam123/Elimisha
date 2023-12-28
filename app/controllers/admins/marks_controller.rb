@@ -38,7 +38,7 @@ class Admins::MarksController < ApplicationController
     private
   
     def mark_params
-      params.require(:mark).permit(:score,:student_id,:subject_id)
+      params.require(:mark).permit(:exam_score,:assignment_score,:quiz_score,:student_id,:subject_id)
     end
 
     def authenticate_admin
