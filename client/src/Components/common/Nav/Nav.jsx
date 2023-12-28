@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { AiOutlineBell } from 'react-icons/ai';
 const apiUrl = import.meta.env.VITE_API_URL;
 
-
-
 function Nav({ studentDetails }) {
   const [showNotifications, setShowNotifications] = useState(false);
 
@@ -11,7 +9,6 @@ function Nav({ studentDetails }) {
     setShowNotifications((prev) => !prev);
   };
   
-
   return (
     <div>
       <div className="pt-0 pr-0 pb-0 pl-0 mt-0 mr-0 mb-0 ml-0"></div>
