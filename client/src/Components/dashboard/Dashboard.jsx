@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom';
 import Layout from '../layout/Layout';
 
 
-function Dashboard({ isLoggedIn, onLogout, studentDetails, setStudentDetails, handleToggle, darkMode }) {
+function Dashboard({ isLoggedIn, onLogout, studentDetails, setStudentDetails, handleToggle, darkMode, handleToggleSidebar,isSidebarOpen,setSidebarOpen }) {
   const buttonClass = darkMode ? 'bg-secondary text-primary' : 'bg-primary text-secondary';
 
   const buttonStyles = {
@@ -27,7 +27,9 @@ function Dashboard({ isLoggedIn, onLogout, studentDetails, setStudentDetails, ha
           buttonClass={buttonClass}
           buttonStyles={buttonStyles}
           darkMode={darkMode}
-          
+          isSidebarOpen={isSidebarOpen}
+          handleToggleSidebar={handleToggleSidebar}
+          setSidebarOpen={setSidebarOpen}
         />
         
       </div>

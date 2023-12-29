@@ -10,14 +10,14 @@ export default {
         secondary: 'var(--secondary)'
       },
       textColor: {
-        'green-500': '#00cc00',
-        'yellow-500': '#ffcc00',
+        'green-500': '#19A519',
+        'yellow-700': '#BFBF00',
         'brown-500': '#996633',
         'purple-500': '#800080',
         'orange-500': '#ff9900',
         'blue-500': '#0000cc',
         'red-500': '#ff0000',
-        'lightgreen': "#90EE90"
+        'lightgreen-500': "#59E659"
       },
     },
   },

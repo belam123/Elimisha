@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { AiOutlineBell } from 'react-icons/ai';
+import { AiOutlineMenu } from 'react-icons/ai'
 const apiUrl = import.meta.env.VITE_API_URL;
 
-function Nav({ studentDetails }) {
+function Nav({ studentDetails, handleToggleSidebar }) {
   const [showNotifications, setShowNotifications] = useState(false);
 
   const handleNotificationClick = () => {
     setShowNotifications((prev) => !prev);
   };
   
+
   return (
     <div>
       <div className="pt-0 pr-0 pb-0 pl-0 mt-0 mr-0 mb-0 ml-0"></div>
@@ -17,11 +19,12 @@ function Nav({ studentDetails }) {
           <div className="w-full border-b-2 border-gray-200">
             <div className="bg-white h-16 justify-between items-center mx-auto px-4 flex">
               <div>
-                <img
-                  src="https://static.vecteezy.com/system/resources/previews/008/040/410/non_2x/school-logo-design-template-free-vector.jpg"
-                  className="block btn- h-12 w-26"
-                  alt=""
-                />
+              <button
+                  onClick={handleToggleSidebar}
+                  className="md:hidden p-2 bg-white rounded-md text-gray-700 transition-all duration-200 hover:text-gray-900 focus:outline-none hover:bg-gray-100 cursor-pointer"
+                >
+  <AiOutlineMenu size={24} />
+</button>  
               </div>
 
               <div className="md:space-x-6 justify-end items-center ml-auto flex space-x-3">
@@ -34,7 +37,7 @@ function Nav({ studentDetails }) {
                     <span className="items-center justify-center flex"></span>
                   </p>
                   {showNotifications && (
-                    <div className="absolute right-0 mt-2 w-64 bg-white border rounded-lg shadow-lg z-10 max-h-48 overflow-y-auto">
+                    <div className="absolute  mt-2 w-64 bg-white border rounded-lg shadow-lg z-10 max-h-48 overflow-y-auto">
                       {studentDetails.notifications.map((notification, index) => (
                         <div key={index} className="p-2">
                           <p>{notification.message}</p>
