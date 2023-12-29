@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 
 function Fee({ studentDetails }) {
+  const [showPaymentForm, setShowPaymentForm] = useState(false);
   const shouldShowPayNowButton = studentDetails.fees.some((fee) => fee.amount > 5);
 
+  const handlePayNowClick = () => {
+    setShowPaymentForm(true);
+  };
+
+  
   return (
     <div className="flex justify-center items-center h-screen">
       <div className="bg-gray-100 p-6 md:p-8 lg:p-10 xl:p-12 rounded-md shadow-md w-full md:w-3/4 lg:w-1/2">
@@ -27,9 +34,38 @@ function Fee({ studentDetails }) {
         )}
 
         {shouldShowPayNowButton && (
-          <button className="bg-blue-500 text-white px-6 py-3 rounded-md mt-6 hover:bg-blue-700">
+          <button
+            onClick={handlePayNowClick}
+            className="bg-blue-500 text-white px-6 py-3 rounded-md mt-6 hover:bg-blue-700"
+          >
             Pay Now
           </button>
+        )}
+
+        {showPaymentForm && (
+          <div className="mt-6">
+            <PayPalScriptProvider options={{ 'client-id': 'ASeAMWGwoJOg8AxoL0oJAv3DJHLdQcZDQL2EssgLkhaijq9dW-J1HdqcoFGeWNXT0h8ErdTG0sm-N5vT' }}>
+              <PayPalButtons
+                style={{ layout: 'horizontal' }}
+                createOrder={(data, actions) => {
+                  return actions.order.create({
+                    purchase_units: [
+                      {
+                        amount: {
+                          value: '10.00', // Replace with the actual payment amount
+                        },
+                      },
+                    ],
+                  });
+                }}
+                onApprove={(data, actions) => {
+                  return actions.order.capture().then(function (details) {
+                    handlePaymentSuccess(details, data);
+                  });
+                }}
+              />
+            </PayPalScriptProvider>
+          </div>
         )}
       </div>
     </div>
