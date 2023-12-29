@@ -14,7 +14,7 @@ function Voucher({ studentDetails }) {
                     </p>
                   </div>
             <p className="text-lg mb-2">
-            Coupon remaining: {Math.round(voucher.voucher_amount / 90)}
+            Coupon remaining: {Math.round(voucher.voucher_amount )}
             </p>
             <p className="text-gray-500">Expiry Date: {voucher.expiry_date}</p>
           </div>
