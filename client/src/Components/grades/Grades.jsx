@@ -1,19 +1,16 @@
 import React from 'react';
 
-const MAX_SCORE_A = 400;
-const MIN_SCORE_B = 260;
-
 function getGradeColor(percentage) {
   if (percentage >= 90) {
     return 'text-green-500';
   } else if (percentage >= 80) {
-    return 'text-purple-500';
+    return 'text-lightgreen-500';
   } else if (percentage >= 70) {
-    return 'text-orange-500';
-  } else if (percentage >= 60) {
-    return 'text-brown-500';
-  } else if (percentage >= 50) {
     return 'text-yellow-500';
+  } else if (percentage >= 60) {
+    return 'text-orange-500';
+  } else if (percentage >= 50) {
+    return 'text-brown-500';
   } else {
     return 'text-red-500';
   }

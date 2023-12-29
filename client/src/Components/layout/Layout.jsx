@@ -13,7 +13,7 @@ import Voucher from '../voucher/Voucher';
 import DashboardContent from '../dashboard/DashboardContent';
 
 
-const Layout = ({ onLogout, studentDetails, setStudentDetails,handleToggle,buttonClass,buttonStyles,darkMode }) => {
+const Layout = ({ onLogout, studentDetails, setStudentDetails,handleToggle,buttonClass,buttonStyles,darkMode,handleToggleSidebar,isSidebarOpen,setSidebarOpen }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
 
 
@@ -55,17 +55,17 @@ const Layout = ({ onLogout, studentDetails, setStudentDetails,handleToggle,butto
       element: <Support />
     },
     {path: '/',
-     element: <DashboardContent />
+     element: <DashboardContent studentDetails={studentDetails}   />
   }
   ];
 
   return (
     <div>
 
-      <Nav studentDetails={studentDetails} />
-      <div className="flex">
-        <Sidebar onLogout={onLogout} />
-        <div className="w-full">
+      <Nav studentDetails={studentDetails}  handleToggleSidebar={handleToggleSidebar}  />
+      <div className="flex flex-1">
+        <Sidebar onLogout={onLogout} handleToggleSidebar={handleToggleSidebar} isSidebarOpen={isSidebarOpen} setSidebarOpen={setSidebarOpen} />
+        <div className="w-full p-4 md:pl-64">
           <Routes>
             {routesConfig.map((route, index) => (
               <Route

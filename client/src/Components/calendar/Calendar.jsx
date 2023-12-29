@@ -24,7 +24,7 @@ const Calendar = ({ selectedDate, studentDetails }) => {
 
   return (
     <div>
-      <div className="grid grid-cols-7 gap-2">
+      <div className="grid grid-cols-7 gap-2 relative" style={{ minHeight: '200px' }}>
         {daysOfMonth.map((day) => {
           const formattedDate = format(day, 'yyyy-MM-dd');
           const eventsForDay = eventsByDate[formattedDate];

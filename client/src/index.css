@@ -6,3 +6,10 @@
     --primary: black;
     --secondary: white;
    }
+   /* Add this to your CSS file */
+@media (max-width: 769px) {
+    .hide-sidebar {
+      display: none;
+    }
+  }
+  

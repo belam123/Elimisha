@@ -8,6 +8,8 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
    const [studentDetails, setStudentDetails] = useState(null);
    const[darkMode,setDarkMode] = useState(false)
+   const [isSidebarOpen, setSidebarOpen] = useState(true);
+
 
    const handleSuccessfulLogin = (data) => {
     setIsLoggedIn(true);
@@ -23,6 +25,10 @@ function App() {
     setDarkMode(!darkMode)
   }
 
+  const handleToggleSidebar = () => {
+    setSidebarOpen(!isSidebarOpen)
+  }
+
 
   return (
     <Router>
@@ -34,7 +40,7 @@ function App() {
         />
         <Route
           path='/dashboard/*'
-          element={<Dashboard isLoggedIn={isLoggedIn} onLogout={onLogout}  studentDetails={studentDetails} handleToggle={handleToggle}  darkMode={darkMode}/>}
+          element={<Dashboard isLoggedIn={isLoggedIn} onLogout={onLogout}  studentDetails={studentDetails} handleToggle={handleToggle}  darkMode={darkMode} handleToggleSidebar={handleToggleSidebar} isSidebarOpen={isSidebarOpen} setSidebarOpen={setSidebarOpen} />}
         />
       </Routes>
      
