@@ -44,7 +44,7 @@ function Fee({ studentDetails }) {
 
         {showPaymentForm && (
           <div className="mt-6">
-            <PayPalScriptProvider options={{ 'client-id': 'ASeAMWGwoJOg8AxoL0oJAv3DJHLdQcZDQL2EssgLkhaijq9dW-J1HdqcoFGeWNXT0h8ErdTG0sm-N5vT' }}>
+            <PayPalScriptProvider options={{ 'client-id': import.meta.env.VITE_REACT_APP_PAYPAL_CLIENT_ID }}>
               <PayPalButtons
                 style={{ layout: 'horizontal' }}
                 createOrder={(data, actions) => {
@@ -52,7 +52,7 @@ function Fee({ studentDetails }) {
                     purchase_units: [
                       {
                         amount: {
-                          value: '10.00', // Replace with the actual payment amount
+                          value: '10.00', 
                         },
                       },
                     ],

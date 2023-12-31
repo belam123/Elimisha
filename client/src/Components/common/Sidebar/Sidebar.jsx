@@ -40,7 +40,9 @@ function Sidebar({ onLogout, isSidebarOpen, setSidebarOpen }) {
                 <div className="space-y-4">
                   <LinkButton icon={<AiOutlineUser />} text="Student Information" to="/dashboard/student-info" onClick={handleLinkClick} />
                   <LinkButton icon={<AiOutlineDashboard />} text="Dashboard" to="/dashboard" onClick={handleLinkClick} />
+                  <LinkButton icon={<AiOutlineBook />} text="Coupon" to="/dashboard/voucher" onClick={handleLinkClick} />
                   <LinkButton icon={<AiOutlineDollar />} text="Fees" to="/dashboard/fees" onClick={handleLinkClick} />
+                  <LinkButton icon={<AiOutlineBook />} text="grades" to="/dashboard/grades" onClick={handleLinkClick} />
                   {/* <LinkButton icon={<AiOutlineTeam />} text="Teachers" to="/dashboard/teachers" onClick={handleLinkClick} /> */}
                   <LinkButton icon={<AiOutlineCalendar />} text="Calendar" to="/dashboard/calendar" onClick={handleLinkClick} />
                   <LinkButton icon={<AiOutlineSetting />} text="Settings" to="/dashboard/settings" onClick={handleLinkClick} />
