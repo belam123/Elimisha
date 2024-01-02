@@ -1,5 +1,4 @@
 import React, { useState,useEffect } from "react";
-import Admin from "../../admin/auth/Admin";
 const apiUrl = import.meta.env.VITE_API_URL;
 import {  Navigate } from 'react-router-dom';
 
@@ -11,6 +10,8 @@ const InputField = ({ type, value,placeholder, onChange }) => {
       value={value}
       placeholder={placeholder}
       onChange={onChange}
+      autoComplete
+      required
     />
   );
 };
@@ -23,6 +24,7 @@ const Login = ({ isLoggedIn, onSuccessfulLogin, setStudentDetails }) => {
   const [loading, setLoading] = useState(false);
   const[toggleAdmin,setToggleAdmin] = useState(false)
   const[showMessage,setShowMessage] = useState(false)
+
   
 
   const handleToggleAdmin = () => {
@@ -45,6 +47,7 @@ const Login = ({ isLoggedIn, onSuccessfulLogin, setStudentDetails }) => {
 
   const handleLogin = () => {
     setLoading(true);
+    setErrorMessage([]);
     const userData = { email, password };
     fetch(`${apiUrl}/login`, {
       method: "POST",
@@ -57,6 +60,7 @@ const Login = ({ isLoggedIn, onSuccessfulLogin, setStudentDetails }) => {
         if (!response.ok) {
           return response.json().then((errorDetails) => {
             setErrorMessage([errorDetails.error]);
+  
             throw new Error(errorDetails.error);
           });
         }
@@ -147,10 +151,7 @@ const Login = ({ isLoggedIn, onSuccessfulLogin, setStudentDetails }) => {
   
   return (
     <section className="h-screen flex flex-col md:flex-row justify-center space-y-10 md:space-y-0 md:space-x-16 items-center my-2 mx-5 md:mx-0 md:my-0">
-      {toggleAdmin ? (
-        <Admin onSuccessfulLogin={onSuccessfulLogin} isLoggedIn={isLoggedIn} />
-      ) : (
-        <>
+    
     
           <div className="md:w-1/3 max-w-sm">
             <p className="text-3xl font-semibold text-center">Building classrooms of Tomorrow</p>
@@ -174,19 +175,24 @@ const Login = ({ isLoggedIn, onSuccessfulLogin, setStudentDetails }) => {
               type="email"
               value={email}
               placeholder="email@careercampus.ac.ke"
+              autoComplete="email"
+              required
               onChange={(e) => setEmail(e.target.value)}
             />
             <InputField
               type={showPassword ? "text" : "password"}
               value={password}
               placeholder="password"
+              required
               onChange={(e) => setPassword(e.target.value)}
               
             />
             {errorMessage.length > 0 && (
               <div className="mt-4 text-red-500">
                 {errorMessage.map((error, index) => (
-                  <p key={index}>{error}</p>
+                  <div className="bg-red-200 text-red-800 p-2 mb-4 rounded">
+                    <p key={index} className='text-center'>{error}</p>
+                    </div>
                 ))}
               </div>
             )}
@@ -211,6 +217,7 @@ const Login = ({ isLoggedIn, onSuccessfulLogin, setStudentDetails }) => {
     </svg>
                 </div>
               ) : (
+                <div className="flex justify-center">
                 <button
                   className="mt-4 bg-blue-600 hover:bg-blue-700 px-4 py-2 text-white uppercase rounded text-xs tracking-wider"
                   type="submit"
@@ -218,22 +225,11 @@ const Login = ({ isLoggedIn, onSuccessfulLogin, setStudentDetails }) => {
                 >
                   {loading ? 'Logging in...' : 'Login'}
                 </button>
+                </div>
               )}
             </div>
-            <div className="mt-4 font-semibold text-sm text-slate-500 text-center md:text-left">
-          <p>
-            For admins only?{" "}
-            <button
-              className="text-red-600 hover:underline hover:underline-offset-4"
-              onClick={handleToggleAdmin}
-            >
-     student login
-            </button>
-          </p>
-        </div>
+         
           </div>
-        </>
-      )}
     </section>
   );
   

@@ -26,7 +26,7 @@ form4 = Form.create(year: "senior")
 #admins
 admin1 = Admin.create(email: "belammuia0@gmail.com", password: hashed_password1)
 admin2 = Admin.create(email: "clivemudigo@gmail.com", password: hashed_password2)
-admin3 = Admin.create(email: "muia@gmail.com", password: '12345')
+admin3 = Admin.create!(email: 'muia@gmail.com', password: '12345').generate_access_token
 
 #students
 student1 =  Student.create(first_name: "James", second_name: "Kamau", last_name: "Mashu", email: "kmashu@kibwareboys.ac.ke",password: hashed_password3,password_confirmation: hashed_password3, form_id: form1.id)
