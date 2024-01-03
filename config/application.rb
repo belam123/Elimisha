@@ -5,10 +5,12 @@ require "rails/all"
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
-Dotenv::Railtie.load
+
+
 
 module Elimisha
   class Application < Rails::Application
+  
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
 
@@ -20,7 +22,9 @@ module Elimisha
    config.middleware.use ActionDispatch::Session::CookieStore
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
-
+    configure do
+      Dotenv::Railtie.load
+    end
     # Only loads a smaller set of middleware suitable for API only apps.
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
