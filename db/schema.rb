@@ -11,7 +11,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2024_01_02_042814) do
-  create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
     t.bigint "record_id", null: false
@@ -21,7 +21,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_02_042814) do
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
-  create_table "active_storage_blobs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "active_storage_blobs", force: :cascade do |t|
     t.string "key", null: false
     t.string "filename", null: false
     t.string "content_type"
@@ -33,13 +33,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_02_042814) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "active_storage_variant_records", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "active_storage_variant_records", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "admins", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "admins", force: :cascade do |t|
     t.string "email"
     t.string "password_digest"
     t.datetime "created_at", null: false
@@ -47,13 +47,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_02_042814) do
     t.string "access_tokens"
   end
 
-  create_table "backups", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "backups", force: :cascade do |t|
     t.string "backup_file"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "events", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "events", force: :cascade do |t|
     t.string "due_date"
     t.string "message"
     t.bigint "student_id", null: false
@@ -62,7 +62,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_02_042814) do
     t.index ["student_id"], name: "index_events_on_student_id"
   end
 
-  create_table "fees", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "fees", force: :cascade do |t|
     t.integer "amount"
     t.string "due_date"
     t.string "payment_status"
@@ -72,13 +72,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_02_042814) do
     t.index ["student_id"], name: "index_fees_on_student_id"
   end
 
-  create_table "forms", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "forms", force: :cascade do |t|
     t.string "year"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "marks", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "marks", force: :cascade do |t|
     t.integer "exam_score", default: 0
     t.integer "assignment_score", default: 0
     t.integer "quiz_score", default: 0
@@ -90,7 +90,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_02_042814) do
     t.index ["subject_id"], name: "index_marks_on_subject_id"
   end
 
-  create_table "notifications", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "notifications", force: :cascade do |t|
     t.string "message"
     t.bigint "student_id", null: false
     t.datetime "created_at", null: false
@@ -98,7 +98,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_02_042814) do
     t.index ["student_id"], name: "index_notifications_on_student_id"
   end
 
-  create_table "students", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "students", force: :cascade do |t|
     t.string "first_name"
     t.string "second_name"
     t.string "last_name"
@@ -110,7 +110,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_02_042814) do
     t.string "access_token"
   end
 
-  create_table "subjects", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "subjects", force: :cascade do |t|
     t.string "name"
     t.bigint "teacher_id", null: false
     t.datetime "created_at", null: false
@@ -118,7 +118,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_02_042814) do
     t.index ["teacher_id"], name: "index_subjects_on_teacher_id"
   end
 
-  create_table "supports", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "supports", force: :cascade do |t|
     t.string "email"
     t.string "topic"
     t.string "subject"
@@ -129,7 +129,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_02_042814) do
     t.index ["student_id"], name: "index_supports_on_student_id"
   end
 
-  create_table "teachers", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "teachers", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
     t.string "email"
@@ -138,7 +138,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_02_042814) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "vouchers", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "vouchers", force: :cascade do |t|
     t.integer "voucher_amount"
     t.string "expiry_date"
     t.bigint "student_id", null: false

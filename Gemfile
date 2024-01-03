@@ -19,7 +19,8 @@ gem 'jwt'
 gem 'whenever', require: false
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
-gem 'mysql2'
+
+
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem "bcrypt", "~> 3.1.7"
 
@@ -36,6 +37,8 @@ gem "bootsnap", require: false
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
  gem "rack-cors"
 
+ 
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
@@ -47,3 +50,7 @@ group :development do
   # gem "spring"
 end
 
+group :production do
+ gem 'mysql2', '>= 0.5.3', '< 0.7.0'
+
+end
