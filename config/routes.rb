@@ -13,7 +13,8 @@ Rails.application.routes.draw do
     delete 'logout', to: 'sessions#destroy'
   end
 
-  resources :students, only: [:create, :show, :update]
+  resources :students, only: [:index,:create, :update]
+  get '/all', to: 'students#index'
   post '/register', to: 'students#create'
   post 'login', to: 'sessions#create'
   delete 'logout', to: 'sessions#destroy'

@@ -1,179 +1,153 @@
-import React, { useState } from 'react';
-import { AiOutlineTwitter } from 'react-icons/ai';
-import { BiLogoFacebook, BiLogoInstagram } from 'react-icons/bi';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { BiPencil, BiTrash } from 'react-icons/bi';
+
 const apiUrl = import.meta.env.VITE_API_URL;
 
+// Reusable Table Component
+const StudentTable = ({ students, handleEdit, handleDelete }) => (
+  <table className="min-w-full bg-white border border-gray-300 rounded-lg shadow-lg">
+    <thead>
+      <tr className="bg-gray-100">
+        <th className="py-3 px-6 border-b">First Name</th>
+        <th className="py-3 px-6 border-b">Second Name</th>
+        <th className="py-3 px-6 border-b">Last Name</th>
+        <th className="py-3 px-6 border-b">Email</th>
+        <th className="py-3 px-6 border-b">Form</th>
+        <th className="py-3 px-6 border-b">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {students.map((student) => (
+        <tr key={student.id} className="border-b hover:bg-gray-100 transition-colors">
+          <td className="py-2 px-6">{student.first_name}</td>
+          <td className="py-2 px-6">{student.second_name}</td>
+          <td className="py-2 px-6">{student.last_name}</td>
+          <td className="py-2 px-6">{student.email}</td>
+          <td className="py-2 px-6">{student.form.year}</td>
+          <td className="py-2 px-6">
+            <button onClick={() => handleEdit(student.id)} className="text-blue-500 hover:underline mr-2">
+              <BiPencil />
+            </button>
+            <button onClick={() => handleDelete(student.id)} className="text-red-500 hover:underline">
+              <BiTrash />
+            </button>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+);
 
+
+// Reusable Search Bar Component
+const SearchBar = ({ searchTerm, handleSearch }) => (
+  <div>
+    <input
+      type="text"
+      placeholder="Search..."
+      value={searchTerm}
+      onChange={(e) => handleSearch(e.target.value)}
+      className="py-2 px-4 border rounded focus:outline-none focus:ring focus:border-blue-300"
+    />
+  </div>
+);
+
+// Reusable Create Button Component
+const CreateButton = () => (
+  <div>
+    <button className="py-2 px-4 bg-green-500 text-white rounded transition-colors duration-300 hover:bg-green-600">
+      Create
+    </button>
+  </div>
+);
+// Reusable form
+const registerStudentForm = () => {
+  <div>
+   <input type="text" />
+  </div>
+
+}
 function Register() {
-    const[first_name,setFirstName] = useState('')
-    const[second_name,setSecName] = useState('')
-    const[last_name,setTLastName] = useState('')
-    const[email,setEmail] = useState('')
-    const[password,setPassword] = useState('')
-    const[password_confirmation, setConfirmation] = useState('')
-    const[form_id, setFormId] = useState('')
-    const [file, setFile] = useState(null);
+  const [showStudents, setShowDetails] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [searchTerm, setSearchTerm] = useState('');
 
-
-    const handleFileChange = (e) => {
-      const selectedFile = e.target.files[0];
-      setFile(selectedFile);
-    };
-    
-    const handleRegister = () => {
-      const formData = new FormData();
-      formData.append('student[first_name]', first_name);
-      formData.append('student[second_name]', second_name);
-      formData.append('student[last_name]', last_name);
-      formData.append('student[email]', email);
-      formData.append('student[password]', password);
-      formData.append('student[password_confirmation]', password_confirmation);
-      formData.append('student[form_id]', form_id);
-      formData.append('student[image]', file);
-    
-      fetch(`${apiUrl}/register`, {
-        method: 'POST',
-        body:formData,
+  useEffect(() => {
+    axios.get(`${apiUrl}/all`)
+      .then(response => {
+        const students = response.data;
+        setShowDetails(students);
       })
-        .then((res) => res.json())
-        .then((data) => {
-          
-        })
-        .catch((error) => console.error(error));
-    };
+      .catch(error => {
+        console.error('Failed to fetch', error);
+      });
+  }, []);
+
+  const handleCreate = () => {
+    const details ={student: {first_name,second_name,last_name,email,password,password_confirmation,form_id}}
+    axios.post(`${apiUrl}/register`,{details})
+    .then(res => {
+      console.log(res)
+      if(res.status == 200 && res.status <= 300){
+        console.log(res)
+      }
+      else{
+        console.log(res.status)
+      }
+    })
+  }
+
+  const studentsPerPage = 10;
+  const totalPages = Math.ceil(showStudents.length / studentsPerPage);
+
+  const handleClickNext = () => {
+    setCurrentPage(prevPage => Math.min(prevPage + 1, totalPages));
+  };
+
+  const handlePrevClick = () => {
+    setCurrentPage(prevPage => Math.max(prevPage - 1, 1));
+  };
+
+  const handleEdit = (studentId) => {
+    console.log(`Edit button clicked for student with ID ${studentId}`);
+  };
+
+  const handleDelete = (studentId) => {
+    console.log(`Delete button clicked for student with ID ${studentId}`);
+  };
+
+  const paginatedStudents = showStudents.slice(
+    (currentPage - 1) * studentsPerPage,
+    currentPage * studentsPerPage
+  );
+
+  const filteredStudents = paginatedStudents.filter(student =>
+    student.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    student.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    student.email.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
-    <section className="h-screen flex flex-col md:flex-row justify-center space-y-10 md:space-y-0 md:space-x-16 items-center my-2 mx-5 md:mx-0 md:my-0">
-      <div className="md:w-1/3 max-w-sm">
-        <img
-          src="https://img.freepik.com/free-vector/reviews-concept-landing-page_52683-11367.jpg?w=2000"
-          alt="ERROR 404"
-        />
+    <div className="container mx-auto my-8">
+      <div className="flex justify-between items-center mb-4">
+        <SearchBar searchTerm={searchTerm} handleSearch={setSearchTerm} />
+        <CreateButton />
       </div>
-      <div className="md:w-1/3 max-w-sm">
-        <div className="text-center md:text-left">
-          <label className="mr-1">Register with</label>
-          <button
-            type="button"
-            className="mx-1 h-9 w-9  rounded-full bg-blue-600 hover:bg-blue-700 text-white shadow-[0_4px_9px_-4px_#3b71ca]"
-          >
-            <BiLogoFacebook
-              size={20}
-              className="flex justify-center items-center w-full"
-            />
-          </button>
-          <button
-            type="button"
-            className="inlne-block mx-1 h-9 w-9 rounded-full bg-blue-600 hover:bg-blue-700 uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca]"
-          >
-            <BiLogoInstagram
-              size={20}
-              className="flex justify-center items-center w-full"
-            />
-          </button>
-          <button
-            type="button"
-            className="inlne-block mx-1 h-9 w-9 rounded-full bg-blue-600 hover:bg-blue-700 uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca]"
-          >
-            <AiOutlineTwitter
-              size={20}
-              className="flex justify-center items-center w-full"
-            />
-          </button>
-        </div>
-        <div className="my-5 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
-          <p className="mx-4 mb-0 text-center font-semibold text-slate-500">
-            Or
-          </p>
-        </div>
-        <div className="flex flex-wrap -mx-3 mb-3">
-          <div className="w-full md:w-1/2 px-3 mb-3 md:mb-0">
-            <input
-              className="text-sm w-full px-4 py-2 border border-solid border-gray-300 rounded"
-              type="text"
-              placeholder="First name"
-              value={first_name}
-              onChange={(e) => setFirstName(e.target.value)}
-            />
-          </div>
-          <div className="w-full md:w-1/2 px-3">
-            <input
-              className="text-sm w-full px-4 py-2 border border-solid border-gray-300 rounded"
-              type="text"
-              placeholder="Second name"
-              value={second_name}
-              onChange={(e) => setSecName(e.target.value)}
-            />
-          </div>
-        </div>
-        <input
-          className="text-sm w-full px-4 py-2 border border-solid border-gray-300 rounded mb-3"
-          type="text"
-          placeholder="Last name"
-          value={last_name}
-          onChange={(e) => setTLastName(e.target.value)}
-        />
-        <input
-        type="file"
-        accept="image/*"
-        name="image"
-        id="image"
-        onChange={handleFileChange}
-        className="text-sm w-full px-4 py-2 border border-solid border-gray-300 rounded mb-3"
-      />
-        <input
-          className="text-sm w-full px-4 py-2 border border-solid border-gray-300 rounded mb-3"
-          type="email"
-          placeholder="Example@careercampus.ac.ke"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          className="text-sm w-full px-4 py-2 border border-solid border-gray-300 rounded mb-3"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <input
-          className="text-sm w-full px-4 py-2 border border-solid border-gray-300 rounded mb-3"
-          type="password"
-          placeholder="Confirm password"
-          value={password_confirmation}
-          onChange={(e) => setConfirmation(e.target.value)}
-        />
-        <select className="text-sm w-full px-4 py-2 border border-solid border-gray-300 rounded mb-3"
-        value={form_id} 
-        onChange={(e) => setFormId(e.target.value)}
-        >
-          <option value="" disabled hidden>
-            Select year
-          </option>
-          <option value="1">freshman</option>
-          <option value="2">sophomore</option>
-          <option value="3">junior</option>
-          <option value="4">senior</option>
-        </select>
-        <div className="mt-2 flex items-center">
-          <input className="mr-1" type="checkbox" />
-          <span className="text-slate-500">Agree To Terms & Conditions</span>
-        </div>
-        <div className="text-center md:text-left">
-          <button
-            className="mt-4 bg-blue-600 hover:bg-blue-700 px-4 py-2 text-white uppercase rounded text-xs tracking-wider"
-            type="submit"
-            onClick={handleRegister}
-          >
-            Register
-          </button>
-        </div>
-        <div className="mt-4 font-semibold text-sm text-slate-500 text-center md:text-left">
-          Already have an account?{' '}
-          <a className="text-red-600 hover:underline hover:underline-offset-4" href="#">
-            Login
-          </a>
-        </div>
+
+      <div className="overflow-x-auto">
+        <StudentTable students={filteredStudents} handleEdit={handleEdit} handleDelete={handleDelete} />
       </div>
-    </section>
+      
+      <div className="flex justify-between mt-4">
+        <button onClick={handlePrevClick} disabled={currentPage === 1} className="py-2 px-4 bg-blue-500 text-white rounded disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-300 hover:bg-blue-600">
+          Prev
+        </button>
+        <button onClick={handleClickNext} disabled={currentPage === totalPages} className="py-2 px-4 bg-blue-500 text-white rounded disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-300 hover:bg-blue-600">
+          Next
+        </button>
+      </div>
+    </div>
   );
 }
 
