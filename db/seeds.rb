@@ -22,14 +22,14 @@ admin3 = Admin.create!(email: 'muia@gmail.com', password: '12345').generate_acce
 
 
 students = []
-70.times do
+15.times do
   student = Student.create(
     first_name: Faker::Name.first_name,
     second_name: Faker::Name.middle_name,
     last_name: Faker::Name.last_name,
     email: Faker::Internet.unique.email(domain: 'careercampus.ac.ke'),
     password: Faker::Internet.password(min_length: 8),
-    form: forms.sample
+    form: Form.find_by(year: form_names.sample)
   )
 
   students << student

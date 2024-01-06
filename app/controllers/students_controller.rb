@@ -6,13 +6,16 @@ class StudentsController < ApplicationController
   end
   
   def create
-    student = Student.create(student_params)
-    if student.valid?
-      render json: student_with_image_url(student), status: :created
+    student = Student.new(student_params)
+  
+    if student.save
+      render json: student, status: :created
     else
+      puts "Validation errors: #{student.errors.full_messages.join(', ')}"
       render json: { errors: student.errors.full_messages }, status: :unprocessable_entity
     end
   end
+  
   def update
     student = Student.find_by(access_token: params[:access_token])
 
